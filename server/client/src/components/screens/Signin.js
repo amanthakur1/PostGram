@@ -16,7 +16,8 @@ const Signin = ()=>{
     const PostData = ()=>{
 
         // Email regex ------
-        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!emailRegex.test(email)){
             M.toast({html: "Invalid Email Format...", classes:"#ff5252 red accent-2"})
             return;
         }
@@ -59,7 +60,7 @@ const Signin = ()=>{
     return(
         <div className="mycard">
             <div className="card auth-card input-field" >
-                <h2>Instagram</h2>
+                <h2>Sign In</h2>
                 <input 
                 type="text"
                 placeholder="Email"

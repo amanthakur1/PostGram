@@ -3,7 +3,7 @@ import {UserContext} from '../../App'
 import {Link} from 'react-router-dom'
 
 // code for tool tip--------------
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const Home = ()=>{
 
 
     const [data, setData] = useState([]);
-    const {state, dispatch} = useContext(UserContext);
+    const { state } = useContext(UserContext);
     const myInfo = JSON.parse(localStorage.getItem("user"));
 
     // Fecting post from database-------------------
@@ -70,7 +70,7 @@ const Home = ()=>{
         .then(result=>{
             // console.log(result);
             const newData = data.map(item=>{
-                if(item._id== result._id){
+                if(item._id === result._id){
                     return result;
                 }else{
                     return item;
@@ -97,7 +97,7 @@ const Home = ()=>{
         .then(result=>{
             // console.log(result);
             const newData = data.map(item=>{
-                if(item._id== result._id){
+                if(item._id === result._id){
                     return result;
                 }else{
                     return item;
@@ -129,7 +129,7 @@ const Home = ()=>{
         .then(result=>{
             // console.log(result);
             const newData = data.map(item=>{
-                if(item._id== result._id){
+                if(item._id === result._id){
                     return result;
                 }else{
                     return item;
@@ -177,7 +177,7 @@ const Home = ()=>{
             
             console.log(result);
             const newData = data.map((item) => {
-            if (item._id == result._id) {
+            if (item._id === result._id) {
                 return result;
             } 
             else{
@@ -201,7 +201,7 @@ const Home = ()=>{
                                 <h5> {/* for navigating to profile of user */}
                                     <BootstrapTooltip placement="right" title="Visit Profile" arrow>
                                         <Link className="username" to={
-                                                    item.postedBy._id == state._id // Post Owner
+                                                    item.postedBy._id === state._id // Post Owner
                                                     ? "/profile"
                                                     : "profile/"+item.postedBy._id // Not post owner - Navigate To User Profile
                                                 }
@@ -211,7 +211,7 @@ const Home = ()=>{
                                     </BootstrapTooltip>
                                     
                                     { // to show delete button-------------------------------------
-                                        item.postedBy._id == state._id 
+                                        item.postedBy._id === state._id 
                                         &&  
                                         <BootstrapTooltip placement="left" title="Delete Post" arrow>
                                             <span className="material-icons" 
@@ -229,10 +229,11 @@ const Home = ()=>{
                                         >
                                             favorite
                                         </i>
-                                    <img  
+                                    <img
+                                        alt = ""
                                         src={item.photo}
                                         onDoubleClick={()=>{
-                                            { item.likes.includes(myInfo._id) ? unlikePost(item._id) : likePost(item._id)}
+                                            item.likes.includes(myInfo._id) ? unlikePost(item._id) : likePost(item._id)
                                         }}
                                     />
                                 </div>
@@ -291,7 +292,7 @@ const Home = ()=>{
                                                     <span>{record.postedBy.name}</span>  
                                                     <span style={{fontWeight:"lighter"}}> {record.text}</span> 
                                                     
-                                                    { ((item.postedBy._id == state._id) || (state._id == record.postedBy._id))
+                                                    { ((item.postedBy._id === state._id) || (state._id === record.postedBy._id))
                                                     // (record.postedBy._id  ||  item.postedBy._id) == state._id 
                                                         && (
                                                             <BootstrapTooltip placement="left" title="Delete Comment" arrow> 

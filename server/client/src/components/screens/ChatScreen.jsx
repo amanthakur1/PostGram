@@ -12,6 +12,9 @@ const ChatScreen = () => {
     const [chatWithUser, setChatWithUser] = useState(null);
 
     const setupSocket = () =>{
+        // temporary
+        return;
+
         const token = localStorage.getItem('jwt');
         console.log(token);
         // Socket is already set

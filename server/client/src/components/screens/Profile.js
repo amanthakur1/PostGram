@@ -2,7 +2,7 @@ import React,{useEffect, useState, useContext} from 'react';
 import {UserContext} from '../../App'
 
 // code for tool tip--------------
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
@@ -28,7 +28,7 @@ const Profile = ()=>{
     const [mypics,setPics] = useState([]);
     const {state, dispatch} = useContext(UserContext);
     const [image,setImage] = useState("")
-    const [url, setUrl] = useState("");
+    // const [url, setUrl] = useState("");
 
     // fetching profile from the db---------------
     useEffect(()=>{
@@ -100,11 +100,13 @@ const Profile = ()=>{
                 borderBottom:"1px solid black"
             }}>
                 <div>
-                    <img style={{
-                        width:"160px", 
-                        height:"160px", 
-                        borderRadius:"80px",
-                        border:"2px solid black"
+                    <img
+                        alt = ""
+                        style={{
+                            width:"160px", 
+                            height:"160px", 
+                            borderRadius:"80px",
+                            border:"2px solid black"
                         }} 
                         src={state ? state.pic : "Loading.."}
                     />
