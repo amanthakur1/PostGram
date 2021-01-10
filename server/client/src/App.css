@@ -1,0 +1,222 @@
+body{
+  background: rgb(0,0,1);
+  background: radial-gradient(circle, rgba(0,0,1,0.8412407199207808) 0%, rgba(5,130,122,1) 100%, rgba(187,178,187,0.1829774145986519) 100%, rgba(5,130,122,0.5555264342064952) 100%);
+}
+input{
+  color: black;
+  font-weight: bold;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+
+.nav-wrapper a{
+  color: whitesmoke !important;
+  text-decoration: none;
+}
+.nav-wrapper ul{
+  display: inline-block !important;
+}
+nav{
+  font-family: 'Redressed', cursive;
+  font-weight: bold;
+}
+
+.brand-logo{
+  margin-left: 1rem;
+}
+
+.mycard h2{
+  font-family: 'Redressed', cursive;
+  font-weight: bold;
+}
+
+.auth-card{
+  padding: 20px;
+  text-align: center;
+  max-width: 350px;
+  margin: auto;
+  margin-top: 5rem;
+  border-radius: 1rem;
+}
+
+
+
+.input-field input:focus{
+  border-bottom: 1px solid black !important;
+  box-shadow: 0 1px 0 0 black !important;
+}
+.input-field input::placeholder{
+  color: black !important;
+  font-weight: bold;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.input-field button{
+  font-family: 'Ubuntu', sans-serif;  
+  color: black;
+  font-weight: bold; 
+  text-transform: none;
+}
+.input-field  h6 a{
+  /* color: black !important; */
+  text-decoration: none !important;
+  
+}
+
+/* ***************** PROFILE ****************  */
+
+.details{
+  
+  padding: 20px 10px;
+  background-color: wheat;
+  border-radius: 5px;
+}
+.info{
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.gallary {
+  border-top: 2px solid black;
+
+  background-color:rgba(255, 255, 255, 0.185);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-radius: 6px;
+  padding: 20px 10px;
+
+}
+
+.item {
+  padding: 1rem;
+  width: 30%;
+}
+/* ***************** PROFILE ****************  */
+
+
+/* for HOME cmop */
+
+/* .item{
+  width: 30%;
+  
+} */
+/* .card-image{
+  padding: 1rem;
+} */
+
+.home-card{
+  padding: 1rem;
+  padding-bottom: 0px !important;
+  border: 1px solid black;
+  border-radius: 5px;
+  max-width: 700px;
+  margin: 25px auto;
+  height: max-content;
+}
+.home-card h5{
+  font-family: 'Ubuntu', sans-serif;
+  margin-left: 1rem !important;
+}
+.home-card a{
+  text-decoration: none !important;
+  color: black !important;
+
+}
+.home .card-content{
+  font-family: 'Ubuntu', sans-serif;
+  font-weight:normal;
+  padding-bottom: 0px !important;
+}
+
+/* .commentbox input::placeholder{
+  color: black !important;
+  font-weight: lighter !important;
+
+}  */
+
+
+/* create post */
+
+.file-field{
+  display: inline-flex;
+}
+
+ /* post like effect */
+.card-image{
+  padding: 0px 10px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  cursor: pointer !important;
+}
+
+.card-image img{
+  border-radius: 10px !important;
+}
+
+.card-image i {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: transparent !important;
+  z-index: 99 !important;
+  font-size: 100px !important;
+  display: none !important;
+}
+
+.card-image i.fade-red{
+  color: red !important;
+  display: block !important;
+  transition: 1s;
+  font-size: 200px !important;
+}
+
+.card-image i.fade-white{
+  color: white !important;
+  display: block !important;
+  transition: 1s;
+  font-size: 200px !important;
+}
+ /* post like effect */
+
+
+/* *********************** Toast - Alert ********************* */
+
+#toast-container{
+  top: 65px !important;
+  right: 20px !important;
+  left: auto !important;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold !important;
+}
+
+
+/* logout button */
+
+.logoutbtn{
+  margin-right: 1rem;
+	cursor: pointer;
+}
+
+.material-icons{
+  cursor: pointer;
+}
+
+/* User profile Component */
+.profileloading{
+  font-family: 'Ubuntu', sans-serif;  
+  color: black;
+  font-weight: bold;
+}
+/* User profile Component */
+
+/* follow button */
+.followbtn{
+  margin-left: 2rem;
+  font-size: 2.5rem;
+}
+
+
+.inp{
+  display: none;
+}
