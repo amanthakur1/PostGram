@@ -1,9 +1,9 @@
 import React,{useContext, useRef,useState, useEffect} from 'react';
 import { Link,useHistory } from "react-router-dom";
-import {UserContext} from '../App'
 import M from 'materialize-css';
+import {UserContext, resetSocket} from '../App'
 // code for tool tip--------------
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
@@ -32,28 +32,31 @@ const Navbar = ()=>{
     const {state, dispatch} = useContext(UserContext);
     const history = useHistory();
 
+
     useEffect(()=>{
         M.Modal.init(searchModal.current)
     },[])
+
+    const logOutFunction = () =>{
+        resetSocket();
+        localStorage.clear();
+        dispatch({type:"CLEAR"});
+        history.push('/signin');
+    }
 
     const renderList = ()=>{ // render list in NAVBAR using state login or not
         if(state){
             return[
                 <li> <i data-target="modal1" className="material-icons modal-trigger">search</i>  </li>,
-                <li><i className="material-icons">explore</i></li>,
-                <li><Link to="/myfeed">My Feed</Link></li>,
-                <li><Link to="/chats"><i className="material-icons">chat</i></Link></li>,
-                <li><i className="material-icons">post_add</i></li>,
-                <li><Link to="/create">Add Post</Link></li>,
-                <li><i className="material-icons">person</i></li>,
-                <li><Link to="/profile">Profile</Link></li>,
-                <li>
+                <li key={0}><Link to="/myfeed" ><i className="material-icons">explore </i></Link></li>,
+                <li key={1}><Link to="/chats"  ><i className="material-icons">chat    </i></Link></li>,
+                <li key={2}><Link to="/create" ><i className="material-icons">post_add</i></Link></li>,
+                <li key={3}><Link to="/profile"><i className="material-icons">person  </i></Link></li>,
+                <li key={4}>
                     {/* <button className="logoutbtn"> */}
                     <BootstrapTooltip placement="bottom" title="Logout" arrow>
                         <i className="material-icons logoutbtn" onClick={()=>{
-                            localStorage.clear();
-                            dispatch({type:"CLEAR"});
-                            history.push('/signin')
+                            logOutFunction();
                         }}>power_settings_new
                         </i>
                     </BootstrapTooltip>
@@ -63,12 +66,9 @@ const Navbar = ()=>{
         }
         else{
             return[
-                <li><i className="material-icons">settings</i></li>,
-                <li><Link to="/reset">Reset</Link></li>,
-                <li><i className="material-icons">login</i></li>,
-                <li><Link to="/signin">SignIn</Link></li>,
-                <li><i className="material-icons">input</i></li>,
-                <li><Link to="/signup">SignUp</Link></li>
+                <li key={0}><Link to="/reset" ><i className="material-icons left">settings</i>Reset </Link></li>,
+                <li key={1}><Link to="/signin"><i className="material-icons left">login   </i>SignIn</Link></li>,
+                <li key={2}><Link to="/signup"><i className="material-icons left">input   </i>SignUp</Link></li>
             ]
         }
     }
@@ -99,12 +99,12 @@ const Navbar = ()=>{
         <>
         <nav>
             <div className="nav-wrapper black">
-                <BootstrapTooltip placement="bottom" title="Home" arrow>   
-                    <Link to={ state ? "/" : "/signin" } className="brand-logo left">Instagram</Link>
-                </BootstrapTooltip> 
-                <ul id="nav-mobile" className="right">
-                    {renderList()}
-                </ul>
+            <BootstrapTooltip placement="bottom" title="Home" arrow>   
+                <Link to={ state ? "/" : "/signin" } className="brand-logo left">PostGram</Link>
+            </BootstrapTooltip> 
+            <ul id="nav-mobile" className="right">
+                {renderList()}
+            </ul>
             </div>
 
 

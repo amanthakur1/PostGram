@@ -5,53 +5,19 @@ import './chatScreenStyles/chatScreen.css';
 import ChatList from "./chatList/ChatList";
 import ChatContent from "./chatContent/chatContent";
 import UserProfile from "./userProfile/UserProfile";
+import {socket, setupSocket} from '../../App';
 
 const ChatScreen = () => {
     const [onlinePeople,setOnlinePeople] = useState([]);
     const [socket, setSocket] = useState(null);
     const [chatWithUser, setChatWithUser] = useState(null);
 
-    const setupSocket = () =>{
-        const token = localStorage.getItem('jwt');
-        console.log(token);
-        // Socket is already set
-        if(socket) return;
+    const socketFunctions = () =>{
 
-        const newSocket = io('http://localhost:5000',{
-            query:{ token: token },
-            },{ transports: ['websocket']}
-        );
-
-        newSocket.on('connect',()=>{
-            M.toast({html: "Socket Connected!", classes: "#12b697 teal accent-3"});
-            console.log("Socket Connected!");
-        });
-
-        newSocket.on('disconnect',()=>{
-            M.toast({html: "Socket Dis-Connected!", classes: "#a91409 red"});
-            console.log("Socket Dis-Connected!");
-        });
-
-        newSocket.on('new message',(data)=>{
-            data = JSON.parse(data);
-            console.log("NEW MESSAGE:",data.message,data);
-            M.toast({
-                html: `<h6>Message<h6><p>${data.message}</p><p>From: ${data.sender.name}</p>`,
-                classes: "#eee5ae teal accent-3"
-            });
-        });
-
-        newSocket.on('new private message',(data)=>{
-            console.log("NEW PRIVATE MESSAGE:",JSON.parse(data).message);
-        })
-
-        newSocket.on('online users',(data)=>{
-            console.log("ONLINE USERS:",JSON.parse(data));
-            setOnlinePeople(JSON.parse(data).users);
-        });
+        
         
         console.log();
-        setSocket(newSocket);
+        // setSocket(newSocket);
     }
 
     useEffect(()=>{

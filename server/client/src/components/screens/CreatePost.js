@@ -1,9 +1,10 @@
 import React , {useState, useEffect} from 'react';
-import {Link , useHistory} from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import M from 'materialize-css';
+import { setupSocket } from '../../App';
 
 // code for tool tip--------------
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
@@ -35,6 +36,7 @@ const CreatePost = () =>{
 
 
     useEffect(() => { // waiting for url to fetch from cloudinary
+        setupSocket();
         if(url){
             // Req for server -------------------------------
 

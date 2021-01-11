@@ -1,10 +1,10 @@
 import React,{useEffect, useState, useContext} from 'react';
-import {UserContext} from '../../App';
+import {UserContext, setupSocket} from '../../App';
 import {useParams} from 'react-router-dom';
 
 
 // code for tool tip--------------
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
@@ -39,7 +39,7 @@ const Profile = ()=>{
 
     // fetching profile from the db for other person---------------
     useEffect(()=>{
-
+        setupSocket();
         fetch(`/user/${userid}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
@@ -104,7 +104,7 @@ const Profile = ()=>{
             dispatch({type:"UPDATE",payload:{following: data.following, followers:data.followers}})
             localStorage.setItem("user",JSON.stringify(data))
             setProfile((prevState)=>{
-                const newFollower = prevState.user.followers.filter(item=>item != data._id ) // filtering 
+                const newFollower = prevState.user.followers.filter(item=>item !== data._id ) // filtering 
                 return {
                     ...prevState,
                     user:{
@@ -134,12 +134,14 @@ const Profile = ()=>{
                     borderBottom:"1px solid black"
                 }}>
                     <div>
-                        <img style={{
-                            width:"160px", 
-                            height:"160px", 
-                            borderRadius:"80px",
-                            border:"2px solid black "
-                            }} 
+                        <img
+                            alt = "" 
+                            style={{
+                                width:"160px", 
+                                height:"160px", 
+                                borderRadius:"80px",
+                                border:"2px solid black "
+                            }}
                             src={userProfile.user.pic}
                         />
                     </div>
