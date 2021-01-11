@@ -1,6 +1,6 @@
 import React,{useContext} from 'react';
 import { Link,useHistory } from "react-router-dom";
-import {UserContext} from '../App'
+import {UserContext, resetSocket} from '../App'
 
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,6 +29,12 @@ const Navbar = ()=>{
     const {state, dispatch} = useContext(UserContext);
     const history = useHistory();
 
+    const logOutFunction = () =>{
+        resetSocket();
+        localStorage.clear();
+        dispatch({type:"CLEAR"});
+        history.push('/signin');
+    }
 
     const renderList = ()=>{ // render list in NAVBAR using state login or not
         if(state){
@@ -41,9 +47,7 @@ const Navbar = ()=>{
                     {/* <button className="logoutbtn"> */}
                     <BootstrapTooltip placement="bottom" title="Logout" arrow>
                         <i className="material-icons logoutbtn" onClick={()=>{
-                            localStorage.clear();
-                            dispatch({type:"CLEAR"});
-                            history.push('/signin')
+                            logOutFunction();
                         }}>power_settings_new
                         </i>
                     </BootstrapTooltip>

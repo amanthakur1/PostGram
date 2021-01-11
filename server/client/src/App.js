@@ -29,6 +29,7 @@ export const UserContext = createContext()
 
 // SOCKET CONNECTION------------------------------------------------------------------
 export var socket = null;
+export var onlineUsersList = [];
 export const setupSocket = () =>{
   // Socket is already set
   if(socket) return;
@@ -50,6 +51,33 @@ export const setupSocket = () =>{
     M.toast({html: "Socket Dis-Connected!", classes: "#a91409 red"});
     console.log("Socket Dis-Connected!");
   });
+
+  socket.on('new message',(data)=>{
+      data = JSON.parse(data);
+      console.log("NEW MESSAGE:",data.message,data);
+      M.toast({
+          html: `<h6>Message<h6><p>${data.message}</p><p>From: ${data.sender.name}</p>`,
+          classes: "#eee5ae teal accent-3"
+      });
+  });
+
+  // Receiving private messages
+  socket.on('new private message',(data)=>{
+    console.log("NEW PRIVATE MESSAGE:",JSON.parse(data).message);
+  })
+
+  // Receiving online users list
+  socket.on('online users',(data)=>{
+    data = JSON.parse(data);
+    console.log("ONLINE USERS:",data);
+    onlineUsersList = data.user;
+  });
+}
+
+export const resetSocket = () =>{
+  socket.disconnect();
+  socket = null;
+  onlineUsersList = [];
 }
 // SOCKET CONNECTION------------------------------------------------------------------
 
