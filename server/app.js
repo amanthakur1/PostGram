@@ -97,6 +97,11 @@ io.on('connection', (socket)=>{
         socket.emit('new message', data);
     });
 
+    // LIST ONLINE USERS
+    socket.on('list online users',()=>{
+        io.to(socket.id).emit('online users',JSON.stringify({users:OnlineUsers}));
+    });
+
     // PRIVATE MESSAGING
     socket.on('private message',(data)=>{
         data = JSON.parse(data);

@@ -1,25 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react'          ;
-import {UserContext} from              '../../../App'   ;
-import ChatListItems from                  './ChatListItems';
-import                                     './chatList.css' ;
+import React, { useContext, useEffect, useState } from 'react'           ;
+import { socket} from                                  '../../../App'    ;
+import ChatListItems from                              './ChatListItems' ;
+import                                                 './chatList.css'  ;
 
 const ChatList = () => {
 
     const [onlineUsersListLocal, setOnlineUsersListLocal] = useState([]);
-    const {state, dispatch} = useContext(UserContext);
 
-    // useEffect(()=>{
-    //     const {_id: myId} = JSON.parse(localStorage.getItem("user"));
-    //     socket.on('online users',(data)=>{
-    //         data = JSON.parse(data);
-    //         if(data.users) setOnlineUsersListLocal(data.users.filter((user)=>user._id !== myId));
-    //     });
-    //     socket.emit('list online users');
-    // },[]);
+    const setupChatlist = () =>{
+        const { _id: myId } = JSON.parse(localStorage.getItem("user"));
+        // Receiving online users list
+        socket.on('online users',(data)=>{
+            data = JSON.parse(data);
+            console.log(data.users);
+            let onlineUsersList = [];
+            if(data.users) onlineUsersList = data.users.filter((user)=>user._id !== myId);
+            console.log("ONLINE USERS:",onlineUsersList);
+            setOnlineUsersListLocal(onlineUsersList);
+        });
+        socket.emit('list online users');
+    }
 
     useEffect(()=>{
-        console.log(state);
-    },[]);
+        if(!socket) console.log("SOCKET NOT SET");
+        else{
+            setupChatlist();
+            console.log("SOCKET SET");
+        }
+    },[socket]);
 
     return (
         <div className="main__chatlist">
