@@ -2,7 +2,7 @@ import React, {useEffect, useState, useRef} from 'react';
 import io from 'socket.io-client';
 import   M                                   from 'materialize-css'  ;
 import './chatScreenStyles/chatScreen.css';
-import ChatList from "./chatList/ChatList";
+import ChatList from './chatComponents/ChatList';
 import ChatContent from "./chatContent/chatContent";
 import UserProfile from "./userProfile/UserProfile";
 import {socket, setupSocket} from '../../App';
@@ -37,7 +37,7 @@ const ChatScreen = () => {
     return (
         <div>
             <div className="main__chatbody">
-                <ChatList onlinePeople={onlinePeople} />
+                <ChatList />
                 <ChatContent />
                 <UserProfile />
             </div>

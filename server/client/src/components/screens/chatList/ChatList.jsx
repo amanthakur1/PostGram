@@ -20,19 +20,11 @@ export default class ChatList extends Component {
     };
   }
 
-  componentDidMount(){
-    // this.setState({
-    //   allChats: 
-    // });
-  }
+  componentDidMount(){}
 
   render() {
     return (
       <div className="main__chatlist">
-        {/* <button className="btn">
-          <i className="fa fa-plus"></i>
-          <span>New conversation</span>
-        </button> */}
         <div className="chatlist__heading">
           <h2>Chats</h2>
           <button className="btn-nobg">
@@ -41,7 +33,6 @@ export default class ChatList extends Component {
         </div>
         <div className="chatList__search">
           <div className="search_wrap">
-            {/* <input type="text" placeholder="Search Here" required /> */}
             <button className="search-btn">
               <i className="fa fa-search"></i>
             </button>

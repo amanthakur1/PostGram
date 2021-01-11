@@ -74,8 +74,8 @@ io.use((socket, next)=>{
 
         User.findById(payload._id)
         .then((user)=>{
-            const { _id, name, email } = user;
-            OnlineUsers.push({ _id, name, email, socketId: socket.id });
+            const { _id, name, email, pic } = user;
+            OnlineUsers.push({ _id, name, email, pic, socketId: socket.id });
             // console.log("[NEW USER]",user.name,user._id,user);
             printSendOnlineUsersList();
         }).catch(err=>{

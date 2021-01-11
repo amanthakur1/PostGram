@@ -72,8 +72,8 @@ export const setupSocket = () =>{
     // Receiving online users list
     socket.on('online users',(data)=>{
       data = JSON.parse(data);
-      console.log(data.user);
-      if(data.user) onlineUsersList = data.user.filter((user)=>user._id !== myId);
+      console.log(data.users);
+      if(data.users) onlineUsersList = data.users.filter((user)=>user._id !== myId);
       console.log("ONLINE USERS:",onlineUsersList);
     });
   }catch(err){
