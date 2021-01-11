@@ -220,3 +220,25 @@ nav{
 .inp{
   display: none;
 }
+
+.collection {
+  margin: 0.5rem 2px 0rem 0 !important;
+  border: 2px solid black !important;
+  border-radius: 30px !important; 
+  font-family: 'Ubuntu', sans-serif !important;
+}
+.collection-item{
+  width : 100%;
+}
+
+.model1{
+  background-color: blueviolet !important;
+}
+
+.collection .collection-item {
+  background-color: #212529 !important;
+  line-height: 3rem !important;
+  padding: 10px 20px !important;
+  margin: 5px !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
