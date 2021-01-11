@@ -45,38 +45,40 @@ const Navbar = ()=>{
     }
 
     const renderList = ()=>{ // render list in NAVBAR using state login or not
+        let signedInNavbar = [
+            <i data-target="modal1" className="material-icons modal-trigger">search</i>,
+            <Link to="/myfeed" ><i className="material-icons">explore </i></Link>,
+            <Link to="/chats"  ><i className="material-icons">chat    </i></Link>,
+            <Link to="/create" ><i className="material-icons">post_add</i></Link>,
+            <Link to="/profile"><i className="material-icons">person  </i></Link>,
+            <BootstrapTooltip placement="bottom" title="Logout" arrow>
+                <i className="material-icons logoutbtn" onClick={()=>{
+                    logOutFunction();
+                }}>power_settings_new
+                </i>
+            </BootstrapTooltip>
+        ]
+        
+        let signedOutNavbar = [
+            <Link to="/reset" ><i className="material-icons left">settings</i>Reset </Link>,
+            <Link to="/signin"><i className="material-icons left">login   </i>SignIn</Link>,
+            <Link to="/signup"><i className="material-icons left">input   </i>SignUp</Link>
+        ]
+
         if(state){
-            return[
-                <li> <i data-target="modal1" className="material-icons modal-trigger">search</i>  </li>,
-                <li key={0}><Link to="/myfeed" ><i className="material-icons">explore </i></Link></li>,
-                <li key={1}><Link to="/chats"  ><i className="material-icons">chat    </i></Link></li>,
-                <li key={2}><Link to="/create" ><i className="material-icons">post_add</i></Link></li>,
-                <li key={3}><Link to="/profile"><i className="material-icons">person  </i></Link></li>,
-                <li key={4}>
-                    {/* <button className="logoutbtn"> */}
-                    <BootstrapTooltip placement="bottom" title="Logout" arrow>
-                        <i className="material-icons logoutbtn" onClick={()=>{
-                            logOutFunction();
-                        }}>power_settings_new
-                        </i>
-                    </BootstrapTooltip>
-                    {/* </button> */}
-                </li>
-            ]
+            signedInNavbar = signedInNavbar.map((item,index)=><li key={index}>{item}</li>);
+            return signedInNavbar;
         }
         else{
-            return[
-                <li key={0}><Link to="/reset" ><i className="material-icons left">settings</i>Reset </Link></li>,
-                <li key={1}><Link to="/signin"><i className="material-icons left">login   </i>SignIn</Link></li>,
-                <li key={2}><Link to="/signup"><i className="material-icons left">input   </i>SignUp</Link></li>
-            ]
+            signedOutNavbar = signedOutNavbar.map((item,index)=><li key={index}>{item}</li>);
+            return signedOutNavbar;
         }
     }
 
     // fetching user on search-------------------
     const fetchUsers = (query)=>{
         setSearch(query)
-        if(query != ""){
+        if(query !== ""){
             fetch('/search-users',{
             method:"post",
             headers:{
@@ -109,7 +111,7 @@ const Navbar = ()=>{
 
 
             {/* Search model ------------------------------- */}
-            <div id="modal1" class="modal" ref={searchModal} style={{color:"black"}}>
+            <div id="modal1" className="modal" ref={searchModal} style={{color:"black"}}>
                 <div className="modal-content">
                     <input
                         type="text"
@@ -120,7 +122,10 @@ const Navbar = ()=>{
                     <ul className="collection">
                         {userDetails.map(item=>{
                             return (
-                                <Link to={ "/profile/" + (item._id !== state._id ? item._id : "")}>
+                                <Link 
+                                    key = {item._id}
+                                    to = { "/profile/" + (item._id !== state._id ? item._id : "")}
+                                >
                                     <li
                                         className="collection-item"
                                         onClick={()=>{

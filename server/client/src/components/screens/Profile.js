@@ -43,7 +43,7 @@ const Profile = ()=>{
             // console.log(result);
             setPics(result.mypost);
         })
-    })
+    },[])
     // fetching profile from the db---------------
 
     // Updating profile pic----------------------
@@ -83,7 +83,7 @@ const Profile = ()=>{
                 console.log(err)
             })
         }
-    },[image])
+    },image)
     const updatePhoto = (file)=>{
         setImage(file)
     }

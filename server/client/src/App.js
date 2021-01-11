@@ -37,7 +37,7 @@ export const setupSocket = () =>{
   try{
     const {_id: myId} = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem('jwt');
-    console.log(token);
+    // console.log(token);
   
     socket = io('http://localhost:5000',{
       query:{ token: token },
@@ -93,7 +93,7 @@ export const resetSocket = () =>{
 // ROUTING FOR DIFFERENT COMPONENTS---------------------------------------------------
 const Routing = ()=>{
   const history = useHistory();
-  const {state, dispatch} = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem("user"))
