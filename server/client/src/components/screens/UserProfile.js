@@ -50,7 +50,7 @@ const Profile = ()=>{
             // console.log(result);
             setProfile(result);
         })
-    },[])
+    },userid)
     // fetching profile from the db for other---------------
 
     // following peoples----------------------------
