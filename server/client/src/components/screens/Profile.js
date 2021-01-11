@@ -1,5 +1,5 @@
 import React,{useEffect, useState, useContext} from 'react';
-import {UserContext} from '../../App'
+import {UserContext, setupSocket} from '../../App'
 
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +32,7 @@ const Profile = ()=>{
 
     // fetching profile from the db---------------
     useEffect(()=>{
-
+        setupSocket();
         fetch('/mypost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")

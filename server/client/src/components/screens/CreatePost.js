@@ -1,6 +1,7 @@
 import React , {useState, useEffect} from 'react';
 import { useHistory} from 'react-router-dom';
 import M from 'materialize-css';
+import { setupSocket } from '../../App';
 
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,6 +36,7 @@ const CreatePost = () =>{
 
 
     useEffect(() => { // waiting for url to fetch from cloudinary
+        setupSocket();
         if(url){
             // Req for server -------------------------------
 

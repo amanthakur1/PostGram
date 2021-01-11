@@ -1,5 +1,5 @@
 import React,{useState,useEffect, useContext} from 'react';
-import {UserContext} from '../../App'
+import {UserContext, setupSocket} from '../../App'
 import {Link} from 'react-router-dom'
 
 // code for tool tip--------------
@@ -32,6 +32,7 @@ const Home = ()=>{
 
     // Fecting post from database-------------------
     useEffect(()=>{
+        setupSocket();
         fetch('/myfeed',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")

@@ -5,15 +5,14 @@ import './chatScreenStyles/chatScreen.css';
 import ChatList from "./chatList/ChatList";
 import ChatContent from "./chatContent/chatContent";
 import UserProfile from "./userProfile/UserProfile";
+import {socket, setupSocket} from '../../App';
 
 const ChatScreen = () => {
     const [onlinePeople,setOnlinePeople] = useState([]);
     const [socket, setSocket] = useState(null);
     const [chatWithUser, setChatWithUser] = useState(null);
 
-    const setupSocket = () =>{
-        // temporary
-        return;
+    const setupSocketLocal = () =>{
 
         const token = localStorage.getItem('jwt');
         console.log(token);
