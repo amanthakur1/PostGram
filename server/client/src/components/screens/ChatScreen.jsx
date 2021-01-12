@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useContext} from 'react'                             ;
+import React, {useEffect, useState, useRef, useContext, useReducer} from 'react'                             ;
 import io from                                   'socket.io-client'                  ;
 import M from                                    'materialize-css'                   ;
 import                                           './chatScreenStyles/chatScreen.css' ;
@@ -6,17 +6,23 @@ import './chatComponents/userProfile.css';
 import ChatList from                             './chatComponents/ChatList'         ;
 import ChatContent from './chatComponents/ChatContent';
 import {socket, setupSocket, UserContext} from                '../../App'                         ;
+import {reducer} from '../../reducers/userReducer';
 
 const ChatScreen = () => {
     const [onlinePeople,setOnlinePeople] = useState([]);
     const [mySocket, setMySocket] = useState(null);
     const [chatWithUserId, setChatWithUserId] = useState("");
     const { state, dispatch } = useContext(UserContext);
+    // const [ mystate ] = useReducer(reducer, state);
 
 
     useEffect(()=>{
         if(socket !== null) setMySocket(socket);
     },[socket]);
+
+    useEffect(()=>{
+        if(state && state.messages) console.log("NEW MESSAGES FROM STATE",state.messages);
+    },state);
 
     const messageRef = useRef(null);
 
@@ -28,7 +34,6 @@ const ChatScreen = () => {
 
         let GlobalStateMessages = state.messages;
         console.log(GlobalStateMessages);
-        // return;
 
         // NEVER CHATTED WITH THIS USER
         const otherPersonEmail = chatWithUserId.email.toString();
@@ -40,7 +45,7 @@ const ChatScreen = () => {
 
         GlobalStateMessages[otherPersonEmail].messages.push({by:"me", msg: message});
 
-        dispatch({type: "NEW-MESSAGE", payload:GlobalStateMessages});
+        // dispatch({type: "NEW-MESSAGE", payload:GlobalStateMessages});
 
         mySocket.emit('private message',JSON.stringify({message,toUserId:chatWithUserId._id}));
     }
@@ -49,17 +54,12 @@ const ChatScreen = () => {
         <div>
             <div className="main__chatbody">
                 <ChatList setChatWithUserId={setChatWithUserId} />
-
-
-
-
-
                 <ChatContent
                     user={chatWithUserId}
                     sendMessage={newMessage}
                 />
                 
-
+                {console.log(state)}
 
 
 

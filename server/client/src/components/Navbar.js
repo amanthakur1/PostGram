@@ -1,7 +1,7 @@
 import React,{useContext, useRef,useState, useEffect} from 'react';
 import { Link,useHistory } from "react-router-dom";
 import M from 'materialize-css';
-import {UserContext, resetSocket} from '../App'
+import {UserContext, resetSocket, SetupMainSocket} from '../App'
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -46,6 +46,7 @@ const Navbar = ()=>{
 
     const renderList = ()=>{ // render list in NAVBAR using state login or not
         let signedInNavbar = [
+            <SetupMainSocket />,
             <i data-target="modal1" className="material-icons modal-trigger">search</i>,
             <Link to="/myfeed" ><i className="material-icons">explore </i></Link>,
             <Link to="/chats"  ><i className="material-icons">chat    </i></Link>,
@@ -66,6 +67,7 @@ const Navbar = ()=>{
         ]
 
         if(state){
+            dispatch({type: "MESSAGES", payload:{messagesActive:true}});
             signedInNavbar = signedInNavbar.map((item,index)=><li key={index}>{item}</li>);
             return signedInNavbar;
         }
