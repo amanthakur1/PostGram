@@ -1,28 +1,22 @@
-import React, {useEffect, useState, useRef} from 'react';
-import io from 'socket.io-client';
-import   M                                   from 'materialize-css'  ;
-import './chatScreenStyles/chatScreen.css';
-import ChatList from './chatComponents/ChatList';
-import ChatContent from "./chatContent/chatContent";
-import UserProfile from "./userProfile/UserProfile";
-import {socket, setupSocket} from '../../App';
+import React, {useEffect, useState, useRef, useContext} from 'react'                             ;
+import io from                                   'socket.io-client'                  ;
+import M from                                    'materialize-css'                   ;
+import                                           './chatScreenStyles/chatScreen.css' ;
+import './chatComponents/userProfile.css';
+import ChatList from                             './chatComponents/ChatList'         ;
+import ChatContent from './chatComponents/ChatContent';
+import {socket, setupSocket, UserContext} from                '../../App'                         ;
 
 const ChatScreen = () => {
     const [onlinePeople,setOnlinePeople] = useState([]);
-    const [socket, setSocket] = useState(null);
-    const [chatWithUser, setChatWithUser] = useState(null);
+    const [mySocket, setMySocket] = useState(null);
+    const [chatWithUserId, setChatWithUserId] = useState("");
+    const { state, dispatch } = useContext(UserContext);
 
-    const socketFunctions = () =>{
-
-        
-        
-        console.log();
-        // setSocket(newSocket);
-    }
 
     useEffect(()=>{
-        setupSocket();
-    },[]);
+        if(socket !== null) setMySocket(socket);
+    },[socket]);
 
     const messageRef = useRef(null);
 
@@ -31,17 +25,68 @@ const ChatScreen = () => {
             M.toast({html: "Message can't be empty!!!", classes: "#a91409 red"});
             return;
         }
-        socket.emit('private message',JSON.stringify({message,toUserId:chatWithUser._id}));
+
+        let GlobalStateMessages = state.messages;
+        console.log(GlobalStateMessages);
+        // return;
+
+        // NEVER CHATTED WITH THIS USER
+        const otherPersonEmail = chatWithUserId.email.toString();
+        if(GlobalStateMessages === {} || !GlobalStateMessages[otherPersonEmail]){
+            GlobalStateMessages[otherPersonEmail] = {};
+            GlobalStateMessages[otherPersonEmail].user = chatWithUserId;
+            GlobalStateMessages[otherPersonEmail].messages = [];
+        }
+
+        GlobalStateMessages[otherPersonEmail].messages.push({by:"me", msg: message});
+
+        dispatch({type: "NEW-MESSAGE", payload:GlobalStateMessages});
+
+        mySocket.emit('private message',JSON.stringify({message,toUserId:chatWithUserId._id}));
     }
 
     return (
         <div>
             <div className="main__chatbody">
-                <ChatList />
-                <ChatContent />
-                <UserProfile />
-            </div>
+                <ChatList setChatWithUserId={setChatWithUserId} />
 
+
+
+
+
+                <ChatContent
+                    user={chatWithUserId}
+                    sendMessage={newMessage}
+                />
+                
+
+
+
+
+
+
+                {/* CHAT WITH USER PROFILE */}
+                {   chatWithUserId !== "" &&
+                    <div className="main__userprofile">
+                        <div className="profile__card user__profile__image">
+                            <div className="profile__image">
+                                <img src={chatWithUserId.pic} />
+                            </div>
+                            <h5>{chatWithUserId.name}</h5>
+                            <h6>{chatWithUserId.email}</h6>
+                        </div>
+                        <div className="profile__card">
+                            {/*
+                            <div className="card__header" onClick={this.toggleInfo}>
+                                <h4>Information</h4>
+                                <i className="fa fa-angle-down"></i>
+                            </div>
+                            */}
+                            <div className="card__content"></div>
+                        </div>
+                    </div>
+                }
+            </div>
         <>
         {/*
         <div className="container-fluid">

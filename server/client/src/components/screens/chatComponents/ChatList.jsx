@@ -3,7 +3,7 @@ import { socket} from                                  '../../../App'    ;
 import ChatListItems from                              './ChatListItems' ;
 import                                                 './chatList.css'  ;
 
-const ChatList = () => {
+const ChatList = ({setChatWithUserId}) => {
 
     const [onlineUsersListLocal, setOnlineUsersListLocal] = useState([]);
 
@@ -47,15 +47,20 @@ const ChatList = () => {
             <div className="chatlist__items">
                 {onlineUsersListLocal && onlineUsersListLocal.map((item, index) => {
                     return (
-                        <ChatListItems
-                            name           ={item  .name                          }
-                            email          ={item .email                          }
-                            key            ={item  ._id                           }
-                            animationDelay ={index + 1                            }
-                            active         ={item  .active ? "active" : "active"  }
-                            isOnline       ={item  .isOnline ? "active" : "active"}
-                            image          ={item  .pic                           }
-                        />
+                        <span
+                            key={item._id}
+                            onClick={()=>setChatWithUserId(item)}
+                        >
+                            <ChatListItems
+                                name           ={item  .name                          }
+                                email          ={item .email                          }
+                                key            ={item  ._id                           }
+                                animationDelay ={index + 1                            }
+                                active         ={item  .active ? "active" : "active"  }
+                                isOnline       ={item  .isOnline ? "active" : "active"}
+                                image          ={item  .pic                           }
+                            />
+                        </span>
                     );
                 })}
             </div>
