@@ -1,12 +1,12 @@
-import   React      ,{useContext, useRef,useState, useEffect} from 'react'                   ;
-import { Link       ,useHistory }                             from "react-router-dom"        ;
-import   M                                                    from 'materialize-css'         ;
-import { UserContext, resetSocket}                            from '../App'
-import   Avatar                                               from '@material-ui/core/Avatar'; // Profile Avatar
-
+import   React       ,{useContext, useRef,useState, useEffect} from 'react'                    ;
+import { Link        ,useHistory }                             from "react-router-dom"         ;
+import   M                                                     from 'materialize-css'          ;
+import { UserContext}                                          from '../App'                   ;
+import   Avatar                                                from '@material-ui/core/Avatar' ;
 // code for tool tip--------------
-import { makeStyles } from '@material-ui/core/styles' ;
-import   Tooltip      from '@material-ui/core/Tooltip';
+import { makeStyles }               from '@material-ui/core/styles'  ;
+import   Tooltip                    from '@material-ui/core/Tooltip' ;
+import   ChatScreen, {GlobalSocket} from './screens/ChatScreen'      ;
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -26,7 +26,8 @@ function BootstrapTooltip(props) {
 // code for tool tip--------------
 
 const Navbar = ()=>{
-    const  searchModal = useRef(null)
+    const  searchModal = useRef(null);
+    const  chatsModal = useRef(null);
     const emailInputRef = useRef(null);
     const [search,setSearch] = useState('')
     const [userDetails,setUserDetails] = useState([])
@@ -38,14 +39,19 @@ const Navbar = ()=>{
 
     useEffect(()=>{
         M.Modal.init(searchModal.current);
-        
+        M.Modal.init(chatsModal.current);
     },[])
 
     const logOutFunction = () =>{
-        resetSocket();
+        try{
+            GlobalSocket.disconnect();
+            GlobalSocket = null;
+        }catch(err){}
+        sessionStorage.clear();
         localStorage.clear();
         dispatch({type:"CLEAR"});
         history.push('/signin');
+        window.location.reload();
     }
 
     const renderList = ()=>{ // render list in NAVBAR using state login or not
@@ -59,7 +65,7 @@ const Navbar = ()=>{
                 </i>
             </BootstrapTooltip>,
             <Link to="/myfeed"  > <i className="material-icons">explore  </i></Link>,
-            <Link to="/chats"   > <i className="material-icons">chat     </i></Link>,
+            <i data-target="chats-modal" className="material-icons modal-trigger">chat</i>,
             <Link to="/create"  > <i className="material-icons">post_add </i></Link>,
             <Link to="/profile" > <i className="material-icons">person   </i></Link>,
             <BootstrapTooltip placement="bottom" title="Logout" arrow>
@@ -204,6 +210,33 @@ const Navbar = ()=>{
             </div>
 
             {/* Search model ------------------------------- */}
+
+
+            {/* CHATS MODAL------------------------------------------------------------------- */}
+            <div
+                id="chats-modal"
+                className="modal"
+                ref={chatsModal}
+                style={{
+                    color:"black",
+                    width: "100vw",
+                    minHeight: "100vh",
+                    marginTop: "0px"
+                }}
+            >
+                <div className="modal-content">
+                    <ChatScreen />
+                </div>
+                <div className="modal-footer">
+                    <button
+                        className="modal-close waves-effect waves-light btn"
+                        onClick={()=>{}}
+                    >
+                        close
+                    </button>
+                </div>
+            </div>
+            {/* CHATS MODAL------------------------------------------------------------------- */}
         </nav>
 
         </>

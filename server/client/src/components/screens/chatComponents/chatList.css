@@ -1,5 +1,5 @@
 .main__chatlist {
-  border-right: 1px solid #ebe7fb;
+  border-right: 1px solid #ebe7fb !important;
   padding: 0 40px 0 0px;
 }
 .chatlist__heading {
@@ -39,19 +39,19 @@
   font-size: 20px;
 }
 .chatlist__items {
-  margin-top: 30px;
+  margin-top: 30px !important;
   overflow: auto;
   max-height: calc(100vh - calc(100vh / 2));
 }
 
 .chatlist__item {
-  display: flex;
-  border-bottom: 1px solid #ebe7fb;
-  padding-bottom: 10px;
-  margin-top: 10px;
+  display: flex !important;
+  border-bottom: 1px solid #ebe7fb !important;
+  padding-bottom: 10px !important;
+  margin-top: 10px !important;
   cursor: pointer;
-  padding: 10px 10px 10px 20px;
-  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
+  padding: 10px 10px 10px 20px !important;
+  transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11) !important;
   transform: scale(0);
   animation-name: showIn;
   animation-duration: 0.2s; /* or: Xms */
@@ -78,11 +78,11 @@
   margin-top: 0;
 }
 .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
 
-  margin-right: 20px;
+  margin-right: 20px !important;
   position: relative;
 }
 .avatar img {
@@ -93,7 +93,7 @@
 .chatlist__item .userMeta p {
   margin: 0;
   padding: 0;
-  color: #000;
+  color: #000 !important;
   font-weight: 600;
   font-size: 14px;
 }
@@ -107,7 +107,7 @@
 }
 .chatlist__item:hover,
 .chatlist__item.active {
-  background: #fff;
+  background: #fff !important;
 
   border-radius: 10px;
 }
@@ -126,7 +126,7 @@
   background-color: tomato;
 }
 .avatar-img {
-  overflow: hidden;
+  overflow: hidden !important;
   border-radius: 50%;
   width: 100%;
   height: 100%;

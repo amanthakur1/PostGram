@@ -1,6 +1,6 @@
-import React,{useEffect  , useState, useContext} from 'react'           ;
-import       {UserContext, setupSocket         } from '../../App'       ;
-import       {useParams                        } from 'react-router-dom';
+import React,{useEffect, useState, useContext} from 'react';
+import {UserContext} from '../../App';
+import {useParams} from 'react-router-dom';
 
 
 // code for tool tip--------------
@@ -39,7 +39,6 @@ const Profile = ()=>{
 
     // fetching profile from the db for other person---------------
     useEffect(()=>{
-        setupSocket();
         fetch(`/user/${userid}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
