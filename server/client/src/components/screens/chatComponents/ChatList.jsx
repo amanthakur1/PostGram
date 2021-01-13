@@ -1,33 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'           ;
-import { socket} from                                  '../../../App'    ;
+import React, { useEffect, useState } from 'react'           ;
 import ChatListItems from                              './ChatListItems' ;
 import                                                 './chatList.css'  ;
 
-const ChatList = ({setChatWithUserId}) => {
-
-    const [onlineUsersListLocal, setOnlineUsersListLocal] = useState([]);
-
-    const setupChatlist = () =>{
-        const { _id: myId } = JSON.parse(localStorage.getItem("user"));
-        // Receiving online users list
-        socket.on('online users',(data)=>{
-            data = JSON.parse(data);
-            console.log(data.users);
-            let onlineUsersList = [];
-            if(data.users) onlineUsersList = data.users.filter((user)=>user._id !== myId);
-            console.log("ONLINE USERS:",onlineUsersList);
-            setOnlineUsersListLocal(onlineUsersList);
-        });
-        socket.emit('list online users');
-    }
-
-    useEffect(()=>{
-        if(!socket) console.log("SOCKET NOT SET");
-        else{
-            setupChatlist();
-            console.log("SOCKET SET");
-        }
-    },[socket]);
+const ChatList = ({ setChatWithUserId, onlinePeople }) => {
 
     return (
         <div className="main__chatlist">
@@ -45,7 +20,7 @@ const ChatList = ({setChatWithUserId}) => {
                 </div>
             </div>
             <div className="chatlist__items">
-                {onlineUsersListLocal && onlineUsersListLocal.map((item, index) => {
+                {onlinePeople && onlinePeople.map((item, index) => {
                     return (
                         <span
                             key={item._id}

@@ -10,7 +10,7 @@ const NewPassword = ()=>{
     const [password, setPassword] = useState("")
     const {token} = useParams();
 
-    console.log(token);
+    // console.log(token);
 
     const PostData = ()=>{
 

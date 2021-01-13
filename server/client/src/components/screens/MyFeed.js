@@ -1,6 +1,6 @@
-import React,{useState,useEffect, useContext} from 'react';
-import {UserContext, setupSocket} from '../../App'
-import {Link} from 'react-router-dom'
+import React,{useState   ,useEffect, useContext} from 'react'           ;
+import       {UserContext                      } from '../../App'       ;
+import       {Link                             } from 'react-router-dom';
 
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +32,6 @@ const Home = ()=>{
 
     // Fecting post from database-------------------
     useEffect(()=>{
-        setupSocket();
         fetch('/myfeed',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
@@ -176,7 +175,7 @@ const Home = ()=>{
         .then((res) => res.json())
         .then((result) =>{
             
-            console.log(result);
+            // console.log(result);
             const newData = data.map((item) => {
             if (item._id === result._id) {
                 return result;

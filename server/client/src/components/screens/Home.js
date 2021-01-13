@@ -1,6 +1,6 @@
-import React,{ useState,useEffect, useContext } from 'react';
-import {UserContext, setupSocket} from '../../App';
-import {Link} from 'react-router-dom';
+import React,{ useState   ,useEffect, useContext } from 'react'           ;
+import       { UserContext                       } from '../../App'       ;
+import       { Link                              } from 'react-router-dom';
 
 
 // code for tool tip--------------
@@ -35,7 +35,6 @@ const Home = ()=>{
 
     // Fecting post from database-------------------
     useEffect(()=>{
-        setupSocket();
         fetch('/allpost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
@@ -137,7 +136,7 @@ const Home = ()=>{
             })
         }).then(res=>res.json())
         .then(result=>{
-            console.log(result);
+            // console.log(result);
             const newData = data.map(item=>{
                 if(item._id === result._id){
                     return result;
@@ -185,7 +184,7 @@ const Home = ()=>{
         .then((res) => res.json())
         .then((result) =>{
             
-            console.log(result);
+            // console.log(result);
             const newData = data.map((item) => {
             if (item._id === result._id) {
                 return result;
@@ -203,14 +202,6 @@ const Home = ()=>{
 
     return(
         <div className="home">
-            {/* <input ref={nameref} type="text"
-                                            placeholder="Add a comment.... "/>
-            <button onClick={()=> console.log(nameref.current.value)}>
-                click
-            </button> */}
-
-            {/* cards */}
-            {/* <FadeIn> */}
                 {
                     data.map((item, index)=>{
                         return(
@@ -331,15 +322,6 @@ const Home = ()=>{
                                         })
                                     }
                                     <div className="commentbox" >
-                                        {/* <input
-                                            type="text"
-                                            placeholder="Add a comment.... "
-                                            ref={comment_on_post.current[index]}
-                                        />
-                                        <button onClick={()=>console.log(comment_on_post.current[index].value)}>
-                                            <i className="material-icons">send</i>
-                                        </button> */}
-
                                         <form onSubmit={(e)=>{
                                             e.preventDefault();
                                             makeComment(e.target[0].value,item._id)

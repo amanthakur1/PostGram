@@ -1,147 +1,172 @@
-import React, {useEffect, useState, useRef, useContext, useReducer} from 'react'                             ;
-import io from                                   'socket.io-client'                  ;
-import M from                                    'materialize-css'                   ;
-import                                           './chatScreenStyles/chatScreen.css' ;
-import './chatComponents/userProfile.css';
-import ChatList from                             './chatComponents/ChatList'         ;
-import ChatContent from './chatComponents/ChatContent';
-import {socket, setupSocket, UserContext} from                '../../App'                         ;
-import {reducer} from '../../reducers/userReducer';
+import React, {useEffect, useState, useRef, useContext} from 'react'                            ;
+import io from                                               'socket.io-client'                 ;
+import M from                                                'materialize-css'                  ;
+import { UserContext } from                                  '../../App'                        ;
+import                                                       './chatComponents/chatScreen.css'  ;
+import                                                       './chatComponents/userProfile.css' ;
+import ChatList from                                         './chatComponents/ChatList'        ;
+import ChatContent from                                      './chatComponents/ChatContent'     ;
+import { Link } from 'react-router-dom';
+
+export var GlobalSocket = null;
 
 const ChatScreen = () => {
-    const [onlinePeople,setOnlinePeople] = useState([]);
-    const [mySocket, setMySocket] = useState(null);
-    const [chatWithUserId, setChatWithUserId] = useState("");
-    const { state, dispatch } = useContext(UserContext);
-    // const [ mystate ] = useReducer(reducer, state);
-
-
-    useEffect(()=>{
-        if(socket !== null) setMySocket(socket);
-    },[socket]);
+    const { state          }                    = useContext(UserContext);
+    const [ onlinePeople  , setOnlinePeople ]   = useState  ([]         );
+    const [ debugChats    , setDebugChats]      = useState  ([]         );
+    const [ chatWithUserId, setChatWithUserId ] = useState  (""         );
+    const [ socket        , setSocket ]         = useState  (null       );
+    const [ chats         , setChats ]          = useState  ([]         );
 
     useEffect(()=>{
-        if(state && state.messages) console.log("NEW MESSAGES FROM STATE",state.messages);
-    },state);
+        try{
+            let {chatData} = JSON.parse(sessionStorage.getItem("chatData"));
+            setChats(chatData);
+        }catch(err){}
+    },[]);
 
-    const messageRef = useRef(null);
+    const addMessageToChats = (data,by) =>{
+        let otherUser = by==="me" ? chatWithUserId : data.sender;
 
+        // ADD MESSAGES TO SESSION STORAGE-------------------------------------------------
+        let {chatData} = JSON.parse(sessionStorage.getItem("chatData"));
+        chatData = [...chatData, {
+            msg:data.message,
+            by: by,
+            email: otherUser.email
+        }]
+        setChats(chatData);
+        sessionStorage.setItem("chatData",JSON.stringify({chatData:chatData}));
+    }
+
+    // SETUP SOCKET FOR COMMUNICATION------------------------------------------------------
+    const setupSocket = () =>{
+        if(GlobalSocket !== null){
+            setSocket(GlobalSocket);
+            return;
+        }
+        setSocket({socketInitiated: true});
+
+        const {_id: myId} = JSON.parse(localStorage.getItem("user"));
+        const token = localStorage.getItem('jwt');
+        
+        // CREATE SOCKET-------------------------------------------------------------------
+        const newSocket = io(`http://localhost:${process.env.PORT || 5000}`,{
+            query:{ token: token },
+            },{ transports: ['websocket']}
+        );
+        GlobalSocket = newSocket;
+        setSocket(newSocket);
+    
+        // SOCKET CONNECT------------------------------------------------------------------
+        newSocket.on('connect',()=>{
+            M.toast({html: "Socket Connected!", classes: "#12b697 teal accent-3"});
+            // console.log("Socket Connected!");
+        });
+    
+        // SOCKET DISCONNECT---------------------------------------------------------------
+        newSocket.on('disconnect',()=>{
+            M.toast({html: "Socket Dis-Connected!", classes: "#a91409 red"});
+            // console.log("Socket Dis-Connected!");
+        });
+    
+        // RECEIVING PRIVATE UPDATE--------------------------------------------------------
+        newSocket.on('new private message',(data)=>{
+            data = JSON.parse(data);
+            // console.log("NEW PRIVATE MESSAGE:",data.message, data);
+            addMessageToChats(data,"other");
+        });
+    
+        // RECEIVING ONLINE USERS LIST-----------------------------------------------------
+        newSocket.on('online users',(data)=>{
+            data = JSON.parse(data);
+            let onlineUsersList = [];
+            if(data.users) onlineUsersList = data.users.filter((user)=>user._id !== myId);
+            setOnlinePeople(onlineUsersList);
+        });
+    }
+
+    // SENDING NEW PRIVATE MESSAGES--------------------------------------------------------
     const newMessage = (message) =>{
         if(!message){
             M.toast({html: "Message can't be empty!!!", classes: "#a91409 red"});
             return;
         }
 
-        let GlobalStateMessages = state.messages;
-        console.log(GlobalStateMessages);
-
-        // NEVER CHATTED WITH THIS USER
-        const otherPersonEmail = chatWithUserId.email.toString();
-        if(GlobalStateMessages === {} || !GlobalStateMessages[otherPersonEmail]){
-            GlobalStateMessages[otherPersonEmail] = {};
-            GlobalStateMessages[otherPersonEmail].user = chatWithUserId;
-            GlobalStateMessages[otherPersonEmail].messages = [];
-        }
-
-        GlobalStateMessages[otherPersonEmail].messages.push({by:"me", msg: message});
-
-        // dispatch({type: "NEW-MESSAGE", payload:GlobalStateMessages});
-
-        mySocket.emit('private message',JSON.stringify({message,toUserId:chatWithUserId._id}));
+        // console.log("new msg by me",chatWithUserId);
+        addMessageToChats({message:message}, "me");
+        socket.emit(
+            'private message',
+            JSON.stringify({
+                message: message,
+                toUserId: chatWithUserId._id
+            })
+        );
     }
 
-    return (
-        <div>
-            <div className="main__chatbody">
-                <ChatList setChatWithUserId={setChatWithUserId} />
-                <ChatContent
-                    user={chatWithUserId}
-                    sendMessage={newMessage}
-                />
-                
-                {console.log(state)}
 
-
-
-
-
-                {/* CHAT WITH USER PROFILE */}
-                {   chatWithUserId !== "" &&
-                    <div className="main__userprofile">
-                        <div className="profile__card user__profile__image">
-                            <div className="profile__image">
-                                <img src={chatWithUserId.pic} />
+    // RENDER CHAT SCREEN------------------------------------------------------------------
+    const renderChatScreen = () =>{
+        if(state){
+            if(socket === null){
+                setSocket({socketInitiated: true});
+                setupSocket();
+            }
+            return(
+                <div className="main__chatbody">
+                    <ChatList
+                        setChatWithUserId={setChatWithUserId} 
+                        onlinePeople={onlinePeople}
+                    />
+                    
+                    <ChatContent
+                        user={chatWithUserId}
+                        sendMessage={newMessage}
+                        chats = {
+                            chatWithUserId ? 
+                              [...chats.filter(item=>item.email === chatWithUserId.email)]
+                            : []
+                        }                    
+                        debugChats={debugChats}
+                        state={state}
+                    />
+                    
+                    {/* CHAT WITH USER PROFILE */}
+                    {   chatWithUserId !== "" &&
+                        <div className="main__userprofile">
+                            <div className="profile__card user__profile__image">
+                                <div className="profile__image">
+                                    <img src={chatWithUserId.pic} />
+                                </div>
+                                <Link to={`/profile/${chatWithUserId._id}`}>
+                                    <h5 style={{color: "blue"}}>
+                                        {chatWithUserId.name}
+                                    </h5>
+                                </Link>
+                                <h6>{chatWithUserId.email}</h6>
                             </div>
-                            <h5>{chatWithUserId.name}</h5>
-                            <h6>{chatWithUserId.email}</h6>
                         </div>
-                        <div className="profile__card">
-                            {/*
-                            <div className="card__header" onClick={this.toggleInfo}>
-                                <h4>Information</h4>
-                                <i className="fa fa-angle-down"></i>
-                            </div>
-                            */}
-                            <div className="card__content"></div>
-                        </div>
-                    </div>
-                }
-            </div>
-        <>
-        {/*
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-lg-4">
-                    <div style={{
-                            backgroundColor: "yellow",
-                            float: "left"
-                    }}>
-                        <h2>People Online</h2>
-                        {
-                            onlinePeople &&
-                            onlinePeople.map(person=>{
-                                return (
-                                    <div
-                                        key={person._id}
-                                        onClick={()=>setChatWithUser(person)}
-                                    >
-                                        <p>{person.name}</p>
-                                        <p>{person.email}</p>
-                                        <hr />
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                    }
                 </div>
-                <div className="col-lg-8">
-                    <div style={{
-                        backgroundColor: "red",
-                        float: "right"
-                    }}>
-                        { chatWithUser &&
-                            <>
-                                <p>Chatting with {chatWithUser.name}</p>
-                                <input ref={messageRef} type="text" />
-                                <button onClick={()=>{
-                                    newMessage(messageRef.current.value);
-                                    messageRef.current.value = "";
-                                }}>
-                                    Send Message
-                                </button>
-                            </>
-                        }
-                        { chatWithUser === null &&
-                            <p>Not Chatting currently</p>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-        */}
-        </>
-        </div>
-    )
+            );
+        }
+        else return(<></>);
+    }
+
+    useEffect(()=>{
+        return () =>{ // ComponentWillUnMount
+            // console.log("Unmount");
+            try{
+                socket.disconnect();
+                // console.log("SOCKET DISCONNECTED");
+                GlobalSocket = null;
+                // console.log("GLOBAL SOCKET NULL");
+            }catch(err){}
+            setSocket(null);
+        }
+    },[]);
+
+    return (<>{renderChatScreen()}</>);
 }
 
 export default ChatScreen;

@@ -1,19 +1,25 @@
-import React, {useRef} from 'react';
-import './chatContent.css'
+import React, {useRef, useEffect} from 'react';
+import ChatItem from './ChatItem';
+import './chatContent.css';
 
-const ChatContent = ({user, sendMessage}) => {
+const ChatContent = ({ user, sendMessage, chats, state }) => {
     const messageRef = useRef("");
+    const scrollRef = useRef(null);
 
-    if(!user)
-        return (
-            <h5>
-                SELECT A USER FROM LIST TO START CHATS
-            </h5>
-        );
-    
+    useEffect(()=>{
+        if(scrollRef.current)scrollRef.current.scrollIntoView({behavior: "smooth",block: "nearest",inline: "start"});
+    },[scrollRef]);
+
+    useEffect(()=>{
+        if(scrollRef.current)scrollRef.current.scrollIntoView({behavior: "smooth",block: "nearest",inline: "start"});
+    },[chats]);
+
+    if(!user) return (<h5>SELECT A USER FROM LIST TO START CHATS</h5>);
     else
     return (
+        <>
         <div className="main__chatcontent">
+            
             
             
             {/* CHAT WITH USER HEADER --------------------------------------------------------- */}
@@ -22,14 +28,20 @@ const ChatContent = ({user, sendMessage}) => {
                     <div className="current-chatting-user">
                         <div className="avatar">
                             <div className="avatar-img">
-                                <img 
-                                    src={user.pic}
-                                    alt={user.name}
-                                />
+                                {   user &&
+                                    <img 
+                                        src={user.pic}
+                                        alt={user.name}
+                                    />
+                                }
                             </div>
                             <span className={`isOnline active`}></span>
                         </div>
-                        <p>{user.name}</p>
+                        <p>
+                            {
+                                user && <span>{user.name}</span>
+                            }
+                        </p>
                     </div>
                 </div>
 
@@ -45,28 +57,27 @@ const ChatContent = ({user, sendMessage}) => {
             
             <div className="content__body">
                 <div className="chat__items">
-            {/* {this.state.chat.map((itm, index) => {
-              return (
-                <ChatItem
-                  animationDelay={index + 2}
-                  key={itm.key}
-                  user={itm.type ? itm.type : "me"}
-                  msg={itm.msg}
-                  image={itm.image}
-                />
-              );
-            })} */}
-            {/* <div ref={this.messagesEndRef} /> */}
+                    { chats &&
+                        chats.map((item, index) => {
+                            return (
+                                <ChatItem
+                                    animationDelay={index + 2}
+                                    key={index}
+                                    user={item.by === "other" ? "other" : "me"}
+                                    msg={item.msg}
+                                    image={item.by === "other" ? user.pic : state.pic}
+                                />
+                            );
+                        })
+                    }
                 </div>
+                <div ref={scrollRef} />
             </div>
 
 
             {/* MESSAGE INPUT BOX--------------------------------------------------------- */}
             <div className="content__footer">
                 <div className="sendNewMessage">
-                    {/* <button className="addFiles">
-                        <i className="fa fa-plus"></i>
-                    </button> */}
                     <input
                         type="text"
                         placeholder="Type a message here..."
@@ -86,6 +97,7 @@ const ChatContent = ({user, sendMessage}) => {
             </div>
             {/* MESSAGE INPUT BOX--------------------------------------------------------- */}
       </div>
+      </>
     );
 }
 

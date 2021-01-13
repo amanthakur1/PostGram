@@ -1,5 +1,5 @@
 import React,{useEffect, useState, useContext} from 'react';
-import {UserContext, setupSocket} from '../../App';
+import {UserContext} from '../../App';
 import {useParams} from 'react-router-dom';
 
 
@@ -39,7 +39,6 @@ const Profile = ()=>{
 
     // fetching profile from the db for other person---------------
     useEffect(()=>{
-        setupSocket();
         fetch(`/user/${userid}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
