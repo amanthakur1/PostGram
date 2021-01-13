@@ -1,16 +1,15 @@
-import React , { useState } from 'react';
-import { useHistory, useParams} from 'react-router-dom';
-
-import M from 'materialize-css';
+import   React      , { useState } from 'react'           ;
+import { useHistory, useParams}    from 'react-router-dom';
+import   M                         from 'materialize-css' ;
 
 const NewPassword = ()=>{
 
 
-    const history = useHistory()
-    const [password, setPassword] = useState("")
-    const {token} = useParams();
+    const  history                = useHistory(  )
+    const [password, setPassword] = useState  ("")
+    const {token   }              = useParams (  );
 
-    console.log(token);
+    // console.log(token);
 
     const PostData = ()=>{
 

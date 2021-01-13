@@ -1,11 +1,11 @@
-import React , {useState, useEffect} from 'react';
-import { useHistory} from 'react-router-dom';
-import M from 'materialize-css';
-import { setupSocket } from '../../App';
+import   React       , {useState, useEffect} from 'react'           ;
+import { useHistory }                        from 'react-router-dom';
+import   M                                   from 'materialize-css' ;
+import { setupSocket }                       from '../../App'       ;
 
 // code for tool tip--------------
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles' ;
+import   Tooltip      from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -28,11 +28,11 @@ function BootstrapTooltip(props) {
 
 const CreatePost = () =>{
 
-    const history = useHistory();
-    const [title, setTitle] = useState("");
-    const [body, setBody] = useState("");
-    const [image, setImage] = useState("");
-    const [url, setUrl] = useState("");
+    const  history            = useHistory(  );
+    const [title  , setTitle] = useState  ("");
+    const [body   , setBody]  = useState  ("");
+    const [image  , setImage] = useState  ("");
+    const [url    , setUrl]   = useState  ("");
 
 
     useEffect(() => { // waiting for url to fetch from cloudinary

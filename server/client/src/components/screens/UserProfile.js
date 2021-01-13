@@ -1,11 +1,11 @@
-import React,{useEffect, useState, useContext} from 'react';
-import {UserContext, setupSocket} from '../../App';
-import {useParams} from 'react-router-dom';
+import React,{useEffect  , useState, useContext} from 'react'           ;
+import       {UserContext, setupSocket         } from '../../App'       ;
+import       {useParams                        } from 'react-router-dom';
 
 
 // code for tool tip--------------
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles' ;
+import   Tooltip      from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -27,10 +27,10 @@ function BootstrapTooltip(props) {
 
 const Profile = ()=>{
 
-    const [userProfile,setProfile] = useState(null);
-    const {state, dispatch} = useContext(UserContext);
-    const {userid} = useParams();
-    const [showfollow, setShowFollow] = useState(true)
+    const [userProfile,setProfile]     = useState  (null       );
+    const {state      , dispatch}      = useContext(UserContext);
+    const {userid     }                = useParams (           );
+    const [showfollow , setShowFollow] = useState  (true       );
     useEffect(() => {
         setShowFollow(state && !state.following.includes(userid))
     }, state) // logic for follow unfollow button

@@ -1,9 +1,9 @@
-import React,{useEffect, useState, useContext} from 'react';
-import {UserContext, setupSocket} from '../../App'
+import React,{useEffect  , useState   , useContext} from 'react'    ;
+import       {UserContext, setupSocket            } from '../../App'
 
 // code for tool tip--------------
-import { makeStyles } from '@material-ui/core/styles';
-import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles' ;
+import   Tooltip      from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -25,9 +25,9 @@ function BootstrapTooltip(props) {
 
 const Profile = ()=>{
 
-    const [mypics,setPics] = useState([]);
-    const {state, dispatch} = useContext(UserContext);
-    const [image,setImage] = useState("")
+    const [mypics, setPics ] = useState  ([]         );
+    const {state , dispatch} = useContext(UserContext);
+    const [image , setImage] = useState  (""         )
     // const [url, setUrl] = useState("");
 
     // fetching profile from the db---------------

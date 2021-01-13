@@ -1,13 +1,13 @@
-import React , {useState, useContext} from 'react';
-import {Link , useHistory} from 'react-router-dom';
-import M from 'materialize-css';
+import  React , {useState, useContext} from 'react'           ;
+import {Link  , useHistory}            from 'react-router-dom';
+import  M                              from 'materialize-css' ;
 
 const Reset = ()=>{
 
 
     // network req------------------------------
-    const history = useHistory()
-    const [email, setEmail] = useState("")
+    const  history            = useHistory(  )
+    const [email  , setEmail] = useState  ("")
 
     const PostData = ()=>{
 

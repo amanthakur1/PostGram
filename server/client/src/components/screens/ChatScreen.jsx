@@ -1,22 +1,19 @@
-import React, {useEffect, useState, useRef} from 'react';
-import io from 'socket.io-client';
-import   M                                   from 'materialize-css'  ;
-import './chatScreenStyles/chatScreen.css';
-import ChatList from "./chatList/ChatList";
-import ChatContent from "./chatContent/chatContent";
-import UserProfile from "./userProfile/UserProfile";
-import {socket, setupSocket} from '../../App';
+import React, {useEffect, useState, useRef} from 'react'                             ;
+import io from                                   'socket.io-client'                  ;
+import M from                                    'materialize-css'                   ;
+import                                           './chatScreenStyles/chatScreen.css' ;
+import ChatList from                             "./chatList/ChatList"               ;
+import ChatContent from                          "./chatContent/chatContent"         ;
+import UserProfile from                          "./userProfile/UserProfile"         ;
+import {socket, setupSocket} from                '../../App'                         ;
 
 const ChatScreen = () => {
-    const [onlinePeople,setOnlinePeople] = useState([]);
-    const [socket, setSocket] = useState(null);
+    const [onlinePeople, setOnlinePeople] = useState([]  );
+    const [socket      , setSocket      ] = useState(null);
     const [chatWithUser, setChatWithUser] = useState(null);
 
     const socketFunctions = () =>{
-
-        
-        
-        console.log();
+        // console.log();
         // setSocket(newSocket);
     }
 

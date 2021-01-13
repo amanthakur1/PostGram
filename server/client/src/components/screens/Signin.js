@@ -1,7 +1,7 @@
-import React , {useState, useContext} from 'react';
-import {Link , useHistory} from 'react-router-dom';
-import {UserContext} from '../../App'
-import M from 'materialize-css';
+import  React       , {useState, useContext} from 'react'           ;
+import {Link        , useHistory}            from 'react-router-dom';
+import {UserContext}                         from '../../App'
+import  M                                    from 'materialize-css' ;
 
 const Signin = ()=>{
 
@@ -9,9 +9,9 @@ const Signin = ()=>{
     const {state, dispatch} = useContext(UserContext);
 
     // network req------------------------------
-    const history = useHistory()
-    const [password, setPassword] = useState("")
-    const [email, setEmail] = useState("")
+    const  history                = useHistory(  )
+    const [password, setPassword] = useState  ("")
+    const [email   , setEmail]    = useState  ("")
 
     const PostData = ()=>{
 

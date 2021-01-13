@@ -1,6 +1,7 @@
 import React,{ useState,useEffect, useContext } from 'react';
 import {UserContext, setupSocket} from '../../App';
 import {Link} from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar'; // Profile Avatar
 
 
 // code for tool tip--------------
@@ -43,7 +44,7 @@ const Home = ()=>{
         })
         .then(res=>res.json())
         .then(result=>{
-            // console.log(result);
+            console.log(result);
             setData(result.posts);
             // comment_on_post.current = result.posts.map(
             //     (ref, index) => comment_on_post.current[index] = React.createRef()
@@ -215,16 +216,18 @@ const Home = ()=>{
                     data.map((item, index)=>{
                         return(
                             <div className="card home-card" key={item._id}>
-                                <h5> {/* for navigating to profile of user */}
+                                <h5 className="post-header" style={{display:"flex"}}> {/* for navigating to profile of user */}
                                         
                                         <BootstrapTooltip placement="right" title="Visit Profile" arrow>
-                                            <Link className="username" to={
+                                            <Link style={{display:"flex"}}className="username" to={
                                                         item.postedBy._id === state._id // Post Owner
                                                         ? "/profile"
                                                         : "profile/"+item.postedBy._id // Not post owner - Navigate To User Profile
                                                     }
-                                            > 
-                                                {item.postedBy.name}
+                                            >   
+                                                <Avatar alt={item.postedBy.name} className="useravatar" src={item.postedBy.pic} />
+                                                <span className="username">{item.postedBy.name}</span>
+                                                
                                             </Link>
                                         </BootstrapTooltip>
                                     
@@ -232,8 +235,7 @@ const Home = ()=>{
                                             item.postedBy._id === state._id 
                                             &&  
                                             <BootstrapTooltip placement="left" title="Delete Post" arrow>
-                                                <span className="material-icons" 
-                                                        style={{float:"right", marginRight:"1rem"}}
+                                                <span className="material-icons deletepost"
                                                         onClick={()=>deletePost(item._id)}
                                                     >delete
                                                 </span>

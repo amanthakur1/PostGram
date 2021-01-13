@@ -8,7 +8,14 @@ input{
   font-family: 'Ubuntu', sans-serif;
 }
 
+.nav-wrapper .material-icons{
+  font-size: 30px !important;
+  padding: 5px;
+  /* margin-top: 10px; */
+  margin-right: 5px;
+}
 
+  /* Signin || SignUp Card and Field----------------------------------------------------------- */
 .nav-wrapper a{
   color: whitesmoke !important;
   text-decoration: none;
@@ -62,8 +69,9 @@ nav{
   text-decoration: none !important;
   
 }
+/* Signin || SignUp Card and Field----------------------------------------------------------- */
 
-/* ***************** PROFILE ****************  */
+/* ***************** PROFILE **************** ---------------------------- */
 
 .details{
   
@@ -91,10 +99,10 @@ nav{
   padding: 1rem;
   width: 30%;
 }
-/* ***************** PROFILE ****************  */
+/* ***************** PROFILE **************** ------------------------------ */
 
 
-/* for HOME cmop */
+/* For Home Comp , POST VIEW ---------------------------------- */
 
 /* .item{
   width: 30%;
@@ -107,6 +115,7 @@ nav{
 .home-card{
   padding: 1rem;
   padding-bottom: 0px !important;
+  padding-top: 5px !important;
   border: 1px solid black;
   border-radius: 5px;
   max-width: 700px;
@@ -115,7 +124,6 @@ nav{
 }
 .home-card h5{
   font-family: 'Ubuntu', sans-serif;
-  margin-left: 1rem !important;
 }
 .home-card a{
   text-decoration: none !important;
@@ -128,20 +136,28 @@ nav{
   padding-bottom: 0px !important;
 }
 
+.username{
+  margin-left: 1rem;
+  margin-top: 3px;
+}
+.deletepost{
+  margin-left: 58%;
+}
+
 /* .commentbox input::placeholder{
   color: black !important;
   font-weight: lighter !important;
 
 }  */
+/* For Home Comp , POST VIEW ---------------------------------- */
 
-
-/* create post */
+/* create post ----------------------------------------------------------- */
 
 .file-field{
   display: inline-flex;
 }
 
- /* post like effect */
+ /* post like effect -------------------------------------------------*/
 .card-image{
   padding: 0px 10px !important;
   overflow: hidden !important;
@@ -177,7 +193,7 @@ nav{
   transition: 1s;
   font-size: 200px !important;
 }
- /* post like effect */
+ /* post like effect------------------------------------------------- */
 
 
 /* *********************** Toast - Alert ********************* */
@@ -220,15 +236,32 @@ nav{
 .inp{
   display: none;
 }
+ /* Search User model ----------------------------------------------- */
+.modal {
+  background-color: #3e8f75;
+  padding: 26px;
+  max-height: 74%;
+  width: 70%;
+  border-radius: 10px;
+}
+.modal-content{
+  padding: 10px !important;  
+  background-color: #ddd !important;
+  border: none;
+}
+.modal-content input::placeholder{
+  color: #000 !important;
+  font-weight: bold;
+}
 
 .collection {
+  justify-content:center !important;
   margin: 0.5rem 2px 0rem 0 !important;
-  border: 2px solid black !important;
-  border-radius: 30px !important; 
   font-family: 'Ubuntu', sans-serif !important;
+
 }
 .collection-item{
-  width : 100%;
+  width : 99%;
 }
 
 .model1{
@@ -237,8 +270,34 @@ nav{
 
 .collection .collection-item {
   background-color: #212529 !important;
-  line-height: 3rem !important;
-  padding: 10px 20px !important;
-  margin: 5px !important;
-  border-bottom: 1px solid #e0e0e0 !important;
+  line-height: 2rem !important;
+  padding: 4px 20px !important;
+  margin: 10px !important;
+  border-radius: 10px;
+  
 }
+/* .collection-item a{
+  margin-top: -2px;
+  text-decoration: none !important;
+  padding-top: 5px;
+} */
+/* .collection-item p{
+  margin-left: 1rem;
+  margin-top: -2px;;
+  padding-bottom: 2px;
+} */
+
+.modelbtn{
+  color: #000 !important;
+  font-size: 2rem;
+  float: right;
+  padding-bottom: 1rem;
+}
+
+.collection-item .username{
+  font-weight: bold !important;
+  font-size: 1.5rem !important;
+  text-decoration: none !important;
+}
+
+/* Search User model ----------------------------------------------- */

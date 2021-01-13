@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
-import {Link, useHistory} from "react-router-dom";
-import M from 'materialize-css';
+import  React, {useState}  from 'react'           ;
+import {Link , useHistory} from "react-router-dom";
+import  M                  from 'materialize-css' ;
 
 const Signup = ()=>{
 
-    const history = useHistory()
-    const [name, setName] = useState("")
-    const [password, setPassword] = useState("")
-    const [email, setEmail] = useState("")
+    const  history                = useHistory(  )
+    const [name    , setName]     = useState  ("")
+    const [password, setPassword] = useState  ("")
+    const [email   , setEmail]    = useState  ("")
 
     // network req------------------
     const PostData = ()=>{

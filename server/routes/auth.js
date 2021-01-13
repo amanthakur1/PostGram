@@ -65,7 +65,7 @@ router.post('/signup',(req,res)=>{
                 res.json({message:"SignUp Successful..."});
             })
             .catch((err)=>{
-                console.log("[ERROR] SignUp1",err);
+                console.log("[ERROR] SignUp",err);
                 // res.json({message:"SignUp successful"});
             })
         })
