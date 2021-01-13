@@ -42,7 +42,7 @@ const Home = ()=>{
         })
         .then(res=>res.json())
         .then(result=>{
-            console.log(result);
+            // console.log(result);
             setData(result.posts);
             // comment_on_post.current = result.posts.map(
             //     (ref, index) => comment_on_post.current[index] = React.createRef()

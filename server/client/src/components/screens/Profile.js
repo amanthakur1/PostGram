@@ -1,5 +1,5 @@
-import React,{useEffect, useState, useContext} from 'react';
-import {UserContext} from '../../App'
+import  React      ,{useEffect , useState, useContext} from 'react'           ;
+import {UserContext }                                  from '../../App'       ;
 
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles' ;
@@ -82,7 +82,7 @@ const Profile = ()=>{
                 console.log(err)
             })
         }
-    },image)
+    },[image])
     const updatePhoto = (file)=>{
         setImage(file)
     }

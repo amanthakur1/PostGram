@@ -135,7 +135,7 @@ const Navbar = ()=>{
                 
             >
 
-                <span class="modal-close material-icons modelbtn"
+                <span className="modal-close material-icons modelbtn"
                     onClick={()=>{
                         setSearch('');
                         setUserDetails([]);
@@ -155,9 +155,9 @@ const Navbar = ()=>{
                         onChange={(e)=>fetchUsers(e.target.value)}
                     />
                     <ul className="collection">
-                        {userDetails.map(item=>{
+                        {userDetails.map((item,index)=>{
                             return (
-                                <div className="collection-item">
+                                <div className="collection-item" key={index}>
                                     <h5 className="post-header" style={{display:"flex"}}
                                         onClick={()=>{
                                             M.Modal.getInstance(searchModal.current).close()
