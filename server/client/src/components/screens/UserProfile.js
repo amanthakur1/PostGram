@@ -2,10 +2,10 @@ import React,{useEffect, useState, useContext} from 'react';
 import {UserContext} from '../../App';
 import {useParams} from 'react-router-dom';
 
-
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles' ;
 import   Tooltip      from '@material-ui/core/Tooltip';
+import Loader from '../loader/Loader';
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -197,7 +197,7 @@ const Profile = ()=>{
                     </div>
             </div>
             
-        : <h2 className="profileloading">Loading ....</h2>
+        : <Loader />
         }  
         </>
     )

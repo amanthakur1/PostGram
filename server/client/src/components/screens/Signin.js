@@ -1,8 +1,8 @@
-import  React       , {useState, useContext} from 'react'           ;
-import {Link        , useHistory}            from 'react-router-dom';
-import {UserContext}                         from '../../App'
-import  M                                    from 'materialize-css' ;
-
+import  React            , {useState, useContext} from 'react'                              ;
+import {Link             , useHistory}            from 'react-router-dom'                  ;
+import {UserContext     }                         from '../../App'
+import  M                                         from 'materialize-css'                    ;
+import  CircularProgress                          from '@material-ui/core/CircularProgress';
 const Signin = ()=>{
 
     // context 
@@ -12,13 +12,16 @@ const Signin = ()=>{
     const  history                = useHistory(  )
     const [password, setPassword] = useState  ("")
     const [email   , setEmail]    = useState  ("")
+    const [signinRequest, setSigninRequest] = useState(false);
 
     const PostData = ()=>{
 
+        setSigninRequest(true);
         // Email regex ------
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!emailRegex.test(email)){
             M.toast({html: "Invalid Email Format...", classes:"#ff5252 red accent-2"})
+            setSigninRequest(false);
             return;
         }
         // Email regex ------
@@ -40,6 +43,7 @@ const Signin = ()=>{
 
             if(data.error){
                 M.toast({html: data.error, classes:"#ff5252 red accent-2" })
+                setSigninRequest(false);
             }
             else{
                 localStorage.setItem("jwt",data.token)
@@ -52,6 +56,7 @@ const Signin = ()=>{
             // console.log(data);
         }).catch(err=>{
             console.log(err);
+            setSigninRequest(false);
         })
     }
     // network req------------------
@@ -73,10 +78,19 @@ const Signin = ()=>{
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
                 />
-                <button className="waves-effect waves-light btn" onClick={() => PostData()} >SignIn</button>
-
+                {
+                    signinRequest === false &&
+                    <button className="waves-effect waves-light btn" onClick={() => PostData()} >
+                        SignIn
+                    </button>
+                }
+                {
+                    signinRequest === true &&
+                    <p><CircularProgress /></p>
+                }
                 <h6>Don't have an Account? <Link to='/signup'>SignUp</Link></h6>
-
+                <h6><Link to="/reset" >Forgot Password?</Link></h6>
+                            
                 
             </div>    
 

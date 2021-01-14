@@ -1,13 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Alef&display=swap');
+
+.chat-landing-image{
+  background-image: url('./landingchat.png');
+  background-size: cover;
+}
+
+
 .main__chatcontent {
   flex-grow: 1;
-  padding: 20px 40px;
+  /* padding: 0px 40px; */
   max-width: 63%;
   border-right: 1px solid #ebe7fb;
+  height: 100% !important;
 }
-.content__header {
+/* .content__header {
   padding-bottom: 15px;
   border-bottom: 1px solid #ebe7fb;
-}
+} */
 .current-chatting-user {
   display: flex;
   align-items: center;
@@ -21,14 +30,23 @@
   justify-content: space-between;
   align-items: center;
 }
+/* .chat-head-avatar{
+  top: -5px; 
+} */
 .settings .btn-nobg {
   color: #000;
 }
 .content__body {
-  max-height: calc(100vh - calc(100vh / 2));
+  /* max-height: calc(100vh - calc(100vh / 2)); */
+  background-image: url('https://res.cloudinary.com/amanthakur/image/upload/c_crop,h_2560,q_100/v1610580234/Whatsapp-Wallpaper-120_uogkeb.jpg');
+  height: 76% !important;
+  background-size: cover;
+  /* background-color: #fff !important; */
   overflow: auto;
+  padding:17px;
 }
 .chat__item {
+  font-family: 'Alef', sans-serif !important;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
@@ -64,12 +82,11 @@
   padding: 1px;
 }
 .chat__item__content {
-  background-color: #4462ff;
+  background-color: #4AC959;
   color: #fff;
-  padding: 15px;
+  padding: 0px 30px;
   border-radius: 10px 10px 0 10px;
   max-width: 50%;
-  min-width: 215px;
 }
 .chat__item__content .chat__meta {
   justify-content: space-between;
@@ -102,17 +119,21 @@
 .chat__item.other .chat__item__content .chat__meta span {
   color: #d1d1d1;
 }
-.content__footer {
+/* .content__footer {
   padding-top: 30px;
-}
+} */
 .sendNewMessage {
-  background-color: #fff;
+  /* background-color: #fff; */
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 10px 50px;
   border-radius: 8px;
+
 }
-.sendNewMessage button {
+.sendNewMessage input{
+  margin: 0px !important;
+}
+.sendNewMessage span {
   width: 36px;
   height: 36px;
   background-color: #ecefff;
@@ -127,10 +148,10 @@
   line-height: 36px;
   transition: all 0.3s cubic-bezier(0.88, 0.19, 0.37, 1.11);
 }
-.sendNewMessage button:hover {
+.sendNewMessage span:hover {
   transform: scale(1.2);
 }
-.sendNewMessage button i {
+.sendNewMessage span i {
   display: block;
 }
 .sendNewMessage input {
@@ -139,8 +160,10 @@
   background-color: transparent;
   border: none;
   outline: none;
+  border-bottom: none !important;
 }
 #sendMsgBtn {
   background-color: #3b5bfe;
-  color: #fff;
+  color: black;
+  font-size: 2rem;
 }

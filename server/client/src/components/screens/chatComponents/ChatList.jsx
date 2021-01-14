@@ -8,17 +8,17 @@ const ChatList = ({ setChatWithUserId, onlinePeople }) => {
         <div className="main__chatlist">
             <div className="chatlist__heading">
                 <h4>Online Users</h4>
-                <button className="btn-nobg">
+                {/* <button className="btn-nobg">
                     <i className="fa fa-ellipsis-h"></i>
-                </button>
+                </button> */}
             </div>
-            <div className="chatList__search">
+            {/* <div className="chatList__search">
                 <div className="search_wrap">
                     <button className="search-btn">
                         <i className="fa fa-search"></i>
                     </button>
                 </div>
-            </div>
+            </div> */}
             <div className="chatlist__items">
                 {onlinePeople && onlinePeople.map((item, index) => {
                     return (

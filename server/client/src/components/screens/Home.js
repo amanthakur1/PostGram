@@ -1,7 +1,9 @@
-import   React      ,{ useState ,useEffect, useContext } from 'react'                    ;
+import   React      ,{ useState ,useEffect, useContext, useRef } from 'react'                    ;
 import { UserContext }                                   from '../../App'                ;
 import { Link        }                                   from 'react-router-dom'         ;
 import   Avatar                                          from '@material-ui/core/Avatar' ;
+import  M                                    from 'materialize-css' ;
+import Loader from '../loader/Loader';
 
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,7 +29,7 @@ function BootstrapTooltip(props) {
 
 const Home = ()=>{
 
-
+    // const commentRef = useRef("");
     const [data, setData] = useState([]);
     // const comment_on_post = useRef([]);
     const { state } = useContext(UserContext);
@@ -124,6 +126,11 @@ const Home = ()=>{
         // const text = comment_on_post.current.value;
         // console.log(text,postId);
         // return;
+        if(!text){
+            M.toast({html: "Comment can't be Empty...", classes:"#ff5252 red accent-2" })
+            return;
+        }
+
         fetch('/comment',{
             method:"put",
             headers:{
@@ -202,6 +209,11 @@ const Home = ()=>{
 
     return(
         <div className="home">
+                {
+                    data.length ===0 &&
+                    <Loader />
+                }
+
                 {
                     data.map((item, index)=>{
                         return(
@@ -322,13 +334,55 @@ const Home = ()=>{
                                             )
                                         })
                                     }
-                                    <div className="commentbox" >
-                                        <form onSubmit={(e)=>{
+                                    {/* <div className="commentbox" >
+                                        <form 
+                                            id="commentform"
+                                            onSubmit={(e)=>{
                                             e.preventDefault();
                                             makeComment(e.target[0].value,item._id)
                                         }}>
                                             <input type="text" placeholder="Add a comment.... " />
+                                            <button type="submit" form="commentform"> <span className="material-icons"> send </span></button>
                                         </form>
+
+                                    </div> */}
+                                    {/* <div className="commentbox">
+                                        <input 
+                                            type="text"  
+                                            ref= {commentRef} 
+                                            placeholder="Add a comment.... " 
+                                            onChange={(e)=>{
+                                                commentRef.current.value = e.target.value;
+                                            }}
+                                        />
+                                        <span 
+                                            className="material-icons"
+                                            onClick={()=>{
+                                                makeComment(commentRef.current.value, item._id);
+                                                commentRef="";
+                                            }}
+                                        > send 
+                                        </span>
+                                         
+                                    </div> */}
+                                    <div className="commentbox">
+                                        <input
+                                            type="text"
+                                            placeholder="Type a Comment here..."
+                                            id={`comment-post-${item._id}`}
+                                        />
+                                        <BootstrapTooltip placement="left-start" title="Make Comment" arrow>
+                                            <span
+                                                className="material-icons"
+                                                
+                                                onClick={()=>{
+                                                    makeComment(document.getElementById(`comment-post-${item._id}`).value, item._id);
+                                                    document.getElementById(`comment-post-${item._id}`).value = "";
+                                                }}
+                                            >
+                                                send
+                                            </span>
+                                        </BootstrapTooltip>   
                                     </div>
                                 </div>
                             </div>

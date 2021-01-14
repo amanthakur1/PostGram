@@ -1,11 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif&display=swap');
+
+
 .main__chatlist {
   border-right: 1px solid #ebe7fb !important;
   padding: 0 40px 0 0px;
 }
 .chatlist__heading {
+  font-family: 'PT Serif', serif;
+  color: whitesmoke !important;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-top: 1rem;
+  font-weight: bold;
 }
 .btn-nobg {
   background-color: transparent;
@@ -90,17 +97,30 @@
   object-fit: cover;
 }
 
+.useravatarchat{
+  margin-top: 10px;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.chatwithusername{
+  font-family: 'PT Serif', serif;
+  color: whitesmoke !important;
+  padding-top: 5px;
+}
+
 .chatlist__item .userMeta p {
   margin: 0;
   padding: 0;
   color: #000 !important;
   font-weight: 600;
   font-size: 14px;
+  font-family: 'PT Serif', serif;
+  
 }
 .chatlist__item .userMeta span {
   margin: 0;
   padding: 0;
-  color: #ceccd3;
+  color: whitesmoke !important;
   font-weight: 400;
   font-size: 12px;
   display: block;

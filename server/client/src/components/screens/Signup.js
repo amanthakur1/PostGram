@@ -1,22 +1,25 @@
 import  React, {useState}  from 'react'           ;
 import {Link , useHistory} from "react-router-dom";
 import  M                  from 'materialize-css' ;
-
+import  CircularProgress                          from '@material-ui/core/CircularProgress';
 const Signup = ()=>{
 
     const  history                = useHistory(  )
     const [name    , setName]     = useState  ("")
     const [password, setPassword] = useState  ("")
     const [email   , setEmail]    = useState  ("")
+    const [signupRequest, setSignupRequest] = useState(false);
 
     // network req------------------
     const PostData = ()=>{
-
+        setSignupRequest(true);
         // Email regex ------
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!emailRegex.test(email)){
             M.toast({html: "Invalid Email Format...", classes:"#ff5252 red accent-2"})
+            setSignupRequest(false);
             return;
+            
         }
         // Email regex ------
 
@@ -35,6 +38,7 @@ const Signup = ()=>{
         .then(data=>{
             if(data.error){
                 M.toast({html: data.error, classes:"#ff5252 red accent-2" })
+                setSignupRequest(false);
             }
             else{
                 M.toast({html: data.message, classes:"#43a047 green darken-1" })
@@ -43,6 +47,7 @@ const Signup = ()=>{
             // console.log(data);
         }).catch(err=>{
             console.log(err);
+            setSignupRequest(false);
         })
     }
     // network req------------------
@@ -70,9 +75,16 @@ const Signup = ()=>{
                 value={password}
                 onChange={(e)=>setPassword(e.target.value)}
                 />
-                <button className="waves-effect waves-light btn" onClick={()=>PostData()}>SignUp</button>
-                <h6>Already have an Account? <Link to='/signin'>SignIn</Link></h6>
                 
+                {
+                    signupRequest === false &&
+                    <button className="waves-effect waves-light btn" onClick={()=>PostData()}>SignUp</button>
+                }
+                {
+                    signupRequest === true &&
+                    <p><CircularProgress /></p>
+                }
+                <h6>Already have an Account? <Link to='/signin'>SignIn</Link></h6>
             </div>    
 
         </div>

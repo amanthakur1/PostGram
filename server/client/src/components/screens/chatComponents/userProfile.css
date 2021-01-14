@@ -6,9 +6,10 @@
   position: relative;
 }
 .profile__card {
-  background-color: #fff;
-  border-radius: 10px;
+  /* background-color: #fff; */
+  /* border-radius: 10px; */
   display: flex;
+  height: 60%;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -90,3 +91,14 @@
 .profile__card.open .card__header i:before {
   content: "\f106";
 }
+.profile__card a , .profile__card h6{
+  text-decoration: none;
+  font-family: 'PT Serif', serif;
+  color: whitesmoke !important;
+
+}
+
+.profile__card h5{
+  color: whitesmoke !important;
+}
+

@@ -1,9 +1,10 @@
 import  React      ,{useEffect , useState, useContext} from 'react'           ;
 import {UserContext }                                  from '../../App'       ;
-
+import  CircularProgress                          from '@material-ui/core/CircularProgress';
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles' ;
 import   Tooltip      from '@material-ui/core/Tooltip';
+import Loader from '../loader/Loader';
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -25,9 +26,10 @@ function BootstrapTooltip(props) {
 
 const Profile = ()=>{
 
-    const [mypics, setPics ] = useState  ([]         );
+    const [mypics, setPics ] = useState  (["empty"]         );
     const {state , dispatch} = useContext(UserContext);
-    const [image , setImage] = useState  (""         )
+    const [image , setImage] = useState  (""         );
+    const [addphoto, setAddphoto] = useState(false);
     // const [url, setUrl] = useState("");
 
     // fetching profile from the db---------------
@@ -74,22 +76,33 @@ const Profile = ()=>{
                     // console.log(result)
                     localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
                     dispatch({type:"UPDATEPIC",payload:result.pic})
+                    setAddphoto(false);
                     //window.location.reload()
                 })
             
             })
             .catch(err=>{
+                setAddphoto(false);
                 console.log(err)
             })
         }
     },[image])
     const updatePhoto = (file)=>{
+        setAddphoto(true);
         setImage(file)
     }
     // Updating profile pic----------------------
 
 
     return(
+
+        <>
+        {
+            mypics === ["empty"]  ?
+                <Loader/>
+            :
+        
+        
         <div style={{maxWidth:"850px", margin: "0px auto"}}>
             <div className= "details"
             style={{
@@ -119,13 +132,19 @@ const Profile = ()=>{
                             // onClick={ ()=>{ updatePhoto() } }
                             > add_a_photo
                         </i> */}
-                        <div className="file-field">
-                            <BootstrapTooltip placement="top" title="Upload Profile Pic" arrow> 
-                                <span className="followbtn material-icons"> add_a_photo 
-                                    <input type="file" onChange={(e)=> updatePhoto(e.target.files[0])}/> 
-                                </span>
-                            </BootstrapTooltip>
-                        </div>
+                        {   
+                            addphoto ?
+                            <span style={{marginLeft:"15px"}}><CircularProgress /></span>
+                        
+                            :
+                            <div className="file-field">
+                                <BootstrapTooltip placement="top" title="Upload Profile Pic" arrow> 
+                                    <span className="followbtn material-icons"> add_a_photo 
+                                        <input type="file" onChange={(e)=> updatePhoto(e.target.files[0])}/> 
+                                    </span>
+                                </BootstrapTooltip>
+                            </div>
+                        }
                     </h4>
                     <div style={{
                         display:"flex",
@@ -151,8 +170,11 @@ const Profile = ()=>{
                     })
                 }
 
-                </div>
-        </div>
+            </div>
+            </div>
+        }       
+
+        </>
     )
 
 }

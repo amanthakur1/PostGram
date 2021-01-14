@@ -57,12 +57,12 @@ router.post('/signup',(req,res)=>{
                 
                 transporter.sendMail({
                     to:user.email,
-                    from:"ac247453@gmail.com",
+                    from:"usoldevs@gmail.com",
                     subject:"Successfully Signed Up",
-                    html:"<h1>Welocome, Account created Successfully..</h1>"
+                    html:"<h3>Welocome, Account created Successfully..</h3>"
                 })
                 
-                res.json({message:"SignUp Successful..."});
+                return res.json({message:"SignUp Successful..."});
             })
             .catch((err)=>{
                 console.log("[SIGNUP ERROR]",err);
@@ -75,7 +75,7 @@ router.post('/signup',(req,res)=>{
     });
 
     // console.log("Signup success]");
-    res.json({message: "Successfully SignedUp..."});
+    // res.json({message: "Successfully SignedUp..."});
     // console.log(req.body);
 });
 
@@ -127,12 +127,12 @@ router.post('/reset-password',(req,res)=>{
             user.save().then((result)=>{
                 transporter.sendMail({
                     to:user.email,
-                    from:"ac247453@gmail.com",
+                    from:"usoldevs@gmail.com",
                     subject:"Password Reset",
                     html:
                     `
-                    <p>You can change your password here.</p>
-                    <h5>click in this <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
+                    <p>You can change your Password here.</p>
+                    <h5>Click on the <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
                     `
                 })
                 res.json({message:"Please check your Mail..."})

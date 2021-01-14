@@ -8,6 +8,28 @@ import ChatList from                                         './chatComponents/C
 import ChatContent from                                      './chatComponents/ChatContent'     ;
 import { Link } from 'react-router-dom';
 
+// code for tool tip--------------
+import { makeStyles }               from '@material-ui/core/styles'  ;
+import   Tooltip                    from '@material-ui/core/Tooltip' ;
+
+const useStylesBootstrap = makeStyles((theme) => ({
+  arrow: {
+    color: theme.palette.common.black,
+  },
+  tooltip: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+function BootstrapTooltip(props) {
+  const classes = useStylesBootstrap();
+
+  return <Tooltip arrow classes={classes} {...props} />;
+}
+// <BootstrapTooltip placement="right" title="Visit Profile" arrow>
+// code for tool tip--------------
+
+
 export var GlobalSocket = null;
 
 const ChatScreen = () => {
@@ -138,12 +160,24 @@ const ChatScreen = () => {
                                 <div className="profile__image">
                                     <img src={chatWithUserId.pic} />
                                 </div>
-                                <Link to={`/profile/${chatWithUserId._id}`}>
-                                    <h5 style={{color: "blue"}}>
-                                        {chatWithUserId.name}
-                                    </h5>
-                                </Link>
-                                <h6>{chatWithUserId.email}</h6>
+
+                                <BootstrapTooltip placement="bottom" title="Visit Profile" arrow>
+                                    <Link to={`/profile/${chatWithUserId._id}`} 
+                                        onClick={()=>{
+                                            try{
+                                                document.getElementById("chatclose").click();
+                                            }catch(e){
+                                                console.log("Chat can't close..");
+                                            }
+                                        }}
+                                    >
+                                        <h5 style={{color: "blue"}}>
+                                            {chatWithUserId.name}
+                                        </h5>
+                                        <h6>{chatWithUserId.email}</h6>
+                                    </Link>
+                                </BootstrapTooltip>
+                                
                             </div>
                         </div>
                     }

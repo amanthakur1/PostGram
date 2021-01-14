@@ -2,7 +2,7 @@ import  React      ,{useState ,useEffect, useContext} from 'react'              
 import {UserContext }                                 from '../../App'                ;
 import {Link        }                                 from 'react-router-dom'         ;
 import  Avatar                                        from '@material-ui/core/Avatar' ;
-
+import Loader from '../loader/Loader';
 // code for tool tip--------------
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -195,6 +195,11 @@ const Home = ()=>{
         <div className="home">
             {/* cards */}
             {/* <FadeIn> */}
+                {
+                    data.length ===0 &&
+                    <Loader />
+                }
+
                 {
                     data.map(item=>{
                         return(

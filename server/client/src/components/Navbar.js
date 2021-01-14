@@ -1,12 +1,14 @@
-import   React       ,{useContext, useRef,useState, useEffect} from 'react'                    ;
-import { Link        ,useHistory }                             from "react-router-dom"         ;
-import   M                                                     from 'materialize-css'          ;
-import { UserContext}                                          from '../App'                   ;
-import   Avatar                                                from '@material-ui/core/Avatar' ;
+import   React        ,{useContext, useRef,useState, useEffect} from 'react'                      ;
+import { Link         ,useHistory }                             from "react-router-dom"           ;
+import   M                                                      from 'materialize-css'            ;
+import { UserContext }                                          from '../App'                     ;
+import   Avatar                                                 from '@material-ui/core/Avatar'   ;
+import   postgramlogo                                           from "./images/postgram-512px.png" ;
+import   ChatScreen, {GlobalSocket} from './screens/ChatScreen'      ;
+
 // code for tool tip--------------
 import { makeStyles }               from '@material-ui/core/styles'  ;
 import   Tooltip                    from '@material-ui/core/Tooltip' ;
-import   ChatScreen, {GlobalSocket} from './screens/ChatScreen'      ;
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -77,9 +79,12 @@ const Navbar = ()=>{
         ]
         
         let signedOutNavbar = [
-            <Link to="/reset" ><i className="material-icons left">settings</i>Reset </Link>,
-            <Link to="/signin"><i className="material-icons left">login   </i>SignIn</Link>,
-            <Link to="/signup"><i className="material-icons left">input   </i>SignUp</Link>
+            <BootstrapTooltip placement="bottom" title="Developers"     arrow>
+                <a href="https://github.com/amanthakur1/PostGram" target="_blank"> 
+                    <i class="fas fa-code" aria-hidden="true"></i> 
+                </a>
+            </BootstrapTooltip>
+            ,
         ]
 
         if(state){
@@ -118,7 +123,21 @@ const Navbar = ()=>{
         <nav>
             <div className="nav-wrapper black">
             <BootstrapTooltip placement="bottom" title="Home" arrow>   
-                <Link to={ state ? "/" : "/signin" } className="brand-logo left">PostGram</Link>
+                
+                <Link to={ state ? "/" : "/signin" } className="brand-logo left">
+                    <img 
+                        style={{
+                            height:'44px',
+                            width:'44px',
+                            marginRight:'10px',
+                            marginBottom:'5px'
+
+                        }}
+                        src={postgramlogo} 
+                        alt="Postgram"
+                    />
+                    PostGram
+                </Link>
             </BootstrapTooltip> 
             <ul id="nav-mobile" className="right">
                 {renderList()}
@@ -223,18 +242,29 @@ const Navbar = ()=>{
                     minHeight: "100vh",
                     marginTop: "0px"
                 }}
-            >
-                <div className="modal-content">
+            >   
+                <span id="chatclose" className="modal-close material-icons chatclose"
+                    onClick={()=>{
+                    // setSearch('');
+                    // setUserDetails([]);
+                    }}
+                >
+                    cancel
+                </span>
+                
+
+                <div className="modal-content chatmodalcontent">
+                    
                     <ChatScreen />
                 </div>
-                <div className="modal-footer">
+                {/* <div className="modal-footer">
                     <button
                         className="modal-close waves-effect waves-light btn"
                         onClick={()=>{}}
                     >
                         close
                     </button>
-                </div>
+                </div> */}
             </div>
             {/* CHATS MODAL------------------------------------------------------------------- */}
         </nav>

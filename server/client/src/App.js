@@ -14,6 +14,7 @@ import NewPassword from                                               "./compone
 
 
 import {reducer, initialState} from './reducers/userReducer'
+import Default from "./components/Default";
 
 // import {UserContext} from '../../App'
 
@@ -51,6 +52,7 @@ const Routing = ()=>{
         <Route       path="/myfeed"          component = {MyFeed      } />
         <Route exact path="/reset"           component = {Reset       } />
         <Route       path="/reset/:token"    component = {NewPassword } />
+        <Route           component = {Default} />
       </Switch>
   );
 }
