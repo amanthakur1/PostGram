@@ -124,7 +124,7 @@ const ChatContent = ({ user, sendMessage, chats, state }) => {
                         className="btnSendMsg material-icons"
                         id="sendMsgBtn"
                         onClick={()=>{
-                            if(messageRef.current.value !== "") sendMessage(messageRef.current.value);
+                            sendMessage(messageRef.current.value);
                             messageRef.current.value = "";
                         }}
                     >

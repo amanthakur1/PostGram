@@ -127,7 +127,7 @@ const Home = ()=>{
         // console.log(text,postId);
         // return;
         if(!text){
-            M.toast({html: "Comment can't be Empty...", classes:"#ff5252 red accent-2" })
+            M.toast({html: `⚠️<span style="color:black" > Comment can't be Empty...</span>`, classes:"yellow red accent-2" })
             return;
         }
 

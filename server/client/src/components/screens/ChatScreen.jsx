@@ -82,13 +82,13 @@ const ChatScreen = () => {
     
         // SOCKET CONNECT------------------------------------------------------------------
         newSocket.on('connect',()=>{
-            M.toast({html: "Socket Connected!", classes: "#12b697 teal accent-3"});
+            M.toast({html: `🌐 <span style="color:black">User Mode Online!</span>`, classes: "#12b697 teal accent-3"});
             // console.log("Socket Connected!");
         });
     
         // SOCKET DISCONNECT---------------------------------------------------------------
         newSocket.on('disconnect',()=>{
-            M.toast({html: "Socket Dis-Connected!", classes: "#a91409 red"});
+            M.toast({html: `❗ <span style="color:black" > User Mode Offline!</span>`, classes: "#a91409 red"});
             // console.log("Socket Dis-Connected!");
         });
     
@@ -111,7 +111,7 @@ const ChatScreen = () => {
     // SENDING NEW PRIVATE MESSAGES--------------------------------------------------------
     const newMessage = (message) =>{
         if(!message){
-            M.toast({html: "Message can't be empty!!!", classes: "#a91409 red"});
+            M.toast({html: `⚠️<span style="color:black" >Message can't be empty!!!</span>`, classes: "yellow red"});
             return;
         }
 

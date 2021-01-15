@@ -80,18 +80,18 @@ const CreatePost = () =>{
 
                 if(data.error){
                     setProgress(0);
-                    M.toast({html: data.error, classes:"#ff5252 red accent-2" })
+                    M.toast({html: `❌ ${data.error}`, classes:"#ff5252 red accent-2" })
                 }
                 else{
                     setProgress(100);
-                    M.toast({html:"Post Uploaded...", classes:"#43a047 green darken-1" })
+                    M.toast({html:"✔️ Post Uploaded...", classes:"#43a047 green darken-1" })
                     history.push('/')
                 }
                 // console.log(data);
             }).catch(err=>{
                 setProgress(0);
                 console.log(err);
-                M.toast({html: "Something went Wrong...", classes:"#ff5252 red accent-2" })
+                M.toast({html: `⚠️<span style="color:black" > Something went Wrong...</span>`, classes:"yellow red accent-2" })
             })
         }
 
@@ -100,6 +100,11 @@ const CreatePost = () =>{
 
     // Posting image to cloudinary ---------------------
     const postDetails = () =>{
+
+        if(!title || !body){
+            M.toast({html: `⚠️<span style="color:black" > Please provide suitable title & description...</span>`, classes:"yellow red accent-2" })
+            return;
+        }
 
         setProgress(10);
 
@@ -120,7 +125,7 @@ const CreatePost = () =>{
         .catch(err=>{
             setProgress(0);
             console.log(err);
-            M.toast({html: "Something went Wrong...", classes:"#ff5252 red accent-2" })
+            M.toast({html: `⚠️<span style="color:black" > Something went Wrong...</span>`, classes:"yellow red accent-2" })
         })
         
     }

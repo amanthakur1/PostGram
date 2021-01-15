@@ -66,8 +66,8 @@ const Navbar = ()=>{
                 >search
                 </i>
             </BootstrapTooltip>,
-            <Link to="/myfeed"  > <i className="material-icons">explore  </i></Link>,
             <i data-target="chats-modal" className="material-icons modal-trigger">chat</i>,
+            <Link to="/myfeed"  > <i className="material-icons">explore  </i></Link>,
             <Link to="/create"  > <i className="material-icons">post_add </i></Link>,
             <Link to="/profile" > <i className="material-icons">person   </i></Link>,
             <BootstrapTooltip placement="bottom" title="Logout" arrow>
@@ -81,7 +81,7 @@ const Navbar = ()=>{
         let signedOutNavbar = [
             <BootstrapTooltip placement="bottom" title="Developers"     arrow>
                 <a href="https://github.com/amanthakur1/PostGram" target="_blank"> 
-                    <i class="fas fa-code" aria-hidden="true"></i> 
+                    <i className="fas fa-code" aria-hidden="true"></i> 
                 </a>
             </BootstrapTooltip>
             ,
@@ -121,7 +121,7 @@ const Navbar = ()=>{
     return(
         <>
         <nav>
-            <div className="nav-wrapper black">
+            <div className="nav-wrapper blue-grey darken-4">
             <BootstrapTooltip placement="bottom" title="Home" arrow>   
                 
                 <Link to={ state ? "/" : "/signin" } className="brand-logo left">

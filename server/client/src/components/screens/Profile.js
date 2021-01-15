@@ -162,9 +162,9 @@ const Profile = ()=>{
         
             <div className="gallary">
                 {
-                    mypics.map(item=>{
+                    mypics.map((item,index)=>{
                         return(
-                            <img key={item._id} className="item" src={item.photo} alt={item.title}/>
+                            <img key={index} className="item" src={item.photo} alt={item.title}/>
 
                         )
                     })

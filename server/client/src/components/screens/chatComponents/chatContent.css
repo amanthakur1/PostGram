@@ -167,3 +167,22 @@
   color: black;
   font-size: 2rem;
 }
+
+/* SCROLL BAR */
+
+::-webkit-scrollbar {
+  width: 7px !important;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 255, 102, 0.7) !important; 
+  border-radius: 10px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  background: rgba(0, 255, 102, 1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 255, 102, 0.5) !important;
+}
+
+/* SCROLL BAR */

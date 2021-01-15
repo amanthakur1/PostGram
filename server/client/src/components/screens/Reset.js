@@ -13,7 +13,7 @@ const Reset = ()=>{
 
         // Email regex ------
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-            M.toast({html: "Invalid Email Format...", classes:"#ff5252 red accent-2"})
+            M.toast({html: `⚠️<span style="color:black" > Invalid Email Format...</span>`, classes:"yellow red accent-2" })
             return;
         }
         // Email regex ------
@@ -32,10 +32,10 @@ const Reset = ()=>{
             // console.log(data);
 
             if(data.error){
-                M.toast({html: data.error, classes:"#ff5252 red accent-2" })
+                M.toast({html: `❌ ${data.error}`, classes:"#ff5252 red accent-2" })
             }
             else{
-                M.toast({html:data.message, classes:"#43a047 green darken-1" })
+                M.toast({html:`✔️ ${data.message}`, classes:"#43a047 green darken-1" })
                 history.push('/signin')
             }
             // console.log(data);

@@ -28,11 +28,10 @@ const NewPassword = ()=>{
             // console.log(data);
 
             if(data.error){
-                M.toast({html: data.error, classes:"#ff5252 red accent-2" })
+                M.toast({html: `❌ ${data.error}`, classes:"#ff5252 red accent-2" })
             }
             else{
-
-                M.toast({html:data.message, classes:"#43a047 green darken-1" })
+                M.toast({html:`✔️ ${data.message}`, classes:"#43a047 green darken-1" })
                 history.push('/signin')
             }
             // console.log(data);
