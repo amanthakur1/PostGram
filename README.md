@@ -1,12 +1,13 @@
 <p align="center">
-	<a href="#">
+	<a href="https://postgram-usoldevs.herokuapp.com/">
 		<img
-	src="https://res.cloudinary.com/amz42/image/upload/v1610657777/personal/postgram-192px_kwuoxs.png"
-		alt="PostGram"
-		border="0"
-	/>
-</a>
-<h1 align="center"><a href="#"> PostGram </a></h2>
+			src="https://res.cloudinary.com/amz42/image/upload/v1610657777/personal/postgram-192px_kwuoxs.png"
+			alt="PostGram"
+			border="0"
+		/>
+	</a>
+</p>
+<h1 align="center"><a href="https://postgram-usoldevs.herokuapp.com/"> PostGram </a></h2>
 
 PostGram is a Web App built on MERN Stack. It's Instagram-clone App & enables users to share their moments with their friends, family, colleagues etc. Besides, users can also search, follow/unfollow & chat with people online in realtime with help of Socket io.
 
