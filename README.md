@@ -20,9 +20,9 @@ PostGram is a Web App built on MERN Stack. It's Instagram-clone App & enables us
 - Instagram like "Explore" & "User Feed"
 - Search, Follow/Unfollow other Users on PostGram
 - Like & Comment what others are sharing
-- Work on all the desktop and mobile platform
+- Works on all the desktop and mobile platform
 - Easy password reset with link on email
-- Easy, clean and attractive UI, with enhanced User Experience Design
+- Clean and Attractive UI, with enhanced User Experience Design
 
 ## Technologies Used:
 
