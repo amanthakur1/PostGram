@@ -54,7 +54,8 @@ const ChatScreen = () => {
         const token = localStorage.getItem('jwt');
         
         // CREATE SOCKET-------------------------------------------------------------------
-        const newSocket = io(`http://localhost:${process.env.PORT || 5000}`,{
+        const newSocket = io(
+            process.env.NODE_ENV === "production" ? `` : `http://localhost:${process.env.PORT || 5000}`,{
             query:{ token: token },
             },{ transports: ['websocket']}
         );
