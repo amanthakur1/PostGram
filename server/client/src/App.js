@@ -13,7 +13,8 @@ import Reset from                                                     "./compone
 import NewPassword from                                               "./components/screens/NewPassword" ;
 
 
-import {reducer, initialState} from './reducers/userReducer'
+import {reducer, initialState} from './reducers/userReducer';
+import {chatReducer, chatInitialState} from './reducers/chatReducer';
 import Default from "./components/Default";
 
 // import {UserContext} from '../../App'
@@ -21,7 +22,7 @@ import Default from "./components/Default";
 // ------------Context Creation-----------------
 
 export const UserContext = createContext()
-
+export const ChatContext = createContext()
 // ------------Context Creation-----------------
 
 
@@ -29,12 +30,14 @@ export const UserContext = createContext()
 const Routing = ()=>{
   const history = useHistory();
   const { dispatch } = useContext(UserContext);
+  const { chatDispatch } = useContext(ChatContext);
 
   useEffect(()=>{
     const user = JSON.parse(localStorage.getItem("user"));
-    sessionStorage.setItem("chatData",JSON.stringify({chatData:[]}));
+
     if(user){
       dispatch({type: "USER", payload:user});
+      chatDispatch({type:"INIT"});
       // history.push('/');
     }else{
       if(!history.location.pathname.startsWith('/reset')) history.push('/signin');
@@ -62,13 +65,16 @@ const Routing = ()=>{
 // MAIN APP---------------------------------------------------------------------------
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [chatState, chatDispatch] = useReducer(chatReducer, chatInitialState);
 
   return (
     <UserContext.Provider value= {{state, dispatch}}>
-      <BrowserRouter>
-        <Navbar />
-        <Routing />
-      </BrowserRouter>
+      <ChatContext.Provider value = {{chatState, chatDispatch}}>
+        <BrowserRouter>
+          <Navbar />
+          <Routing />
+        </BrowserRouter>
+      </ChatContext.Provider>
     </UserContext.Provider>
   );
 }

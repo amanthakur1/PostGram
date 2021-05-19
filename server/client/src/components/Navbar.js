@@ -1,7 +1,7 @@
 import   React        ,{useContext, useRef,useState, useEffect} from 'react'                      ;
 import { Link         ,useHistory }                             from "react-router-dom"           ;
 import   M                                                      from 'materialize-css'            ;
-import { UserContext }                                          from '../App'                     ;
+import { UserContext, ChatContext }                                          from '../App'                     ;
 import   Avatar                                                 from '@material-ui/core/Avatar'   ;
 import   postgramlogo                                           from "./images/postgram-512px.png" ;
 import   ChatScreen, {GlobalSocket} from './screens/ChatScreen'      ;
@@ -36,6 +36,7 @@ const Navbar = ()=>{
 
     // using context in navbar ----------------
     const {state, dispatch} = useContext(UserContext);
+    const {chatDispatch} = useContext(ChatContext);
     const history = useHistory();
 
 
@@ -52,6 +53,8 @@ const Navbar = ()=>{
         sessionStorage.clear();
         localStorage.clear();
         dispatch({type:"CLEAR"});
+        chatDispatch({type: "CLEAR"});
+
         history.push('/signin');
         window.location.reload();
     }

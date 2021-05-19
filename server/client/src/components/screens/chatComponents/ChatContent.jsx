@@ -1,19 +1,41 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState, useContext} from 'react';
+import {UserContext} from '../../../App';
 import ChatItem from './ChatItem';
 import './chatContent.css';
 import   Avatar                                          from '@material-ui/core/Avatar' ;
 
-const ChatContent = ({ user, sendMessage, chats, state }) => {
+const ChatContent = ({ user, sendMessage, chats }) => {
     const messageRef = useRef("");
     const scrollRef = useRef(null);
+    const {state} = useContext(UserContext);
+
+    const makeFocus = () =>{
+        if(messageRef.current)
+            messageRef.current.focus();
+        if(scrollRef.current)
+            scrollRef.current.scrollIntoView({
+                behavior: "smooth",block: "nearest",inline: "start"
+            });
+    }
+
+    const sendMyMessage = () =>{
+        sendMessage(messageRef.current.value);
+        messageRef.current.value = "";
+    }
+
+    const handleKeyPressOnMessageInput = (e) =>{
+        if(e.key == "Enter"){
+            sendMyMessage();
+        }
+    }
 
     useEffect(()=>{
-        if(scrollRef.current)scrollRef.current.scrollIntoView({behavior: "smooth",block: "nearest",inline: "start"});
-    },[scrollRef]);
-
-    useEffect(()=>{
-        if(scrollRef.current)scrollRef.current.scrollIntoView({behavior: "smooth",block: "nearest",inline: "start"});
+        makeFocus();
     },[chats]);
+
+    useEffect(()=>{
+        makeFocus();
+    },[]);
 
     if(!user) return ( // no user online
         
@@ -119,14 +141,13 @@ const ChatContent = ({ user, sendMessage, chats, state }) => {
                         type="text"
                         placeholder="Type a message here..."
                         ref={messageRef}
+                        onKeyPress={handleKeyPressOnMessageInput}
+                        style = {{color: "white"}}
                     />
                     <span
                         className="btnSendMsg material-icons"
                         id="sendMsgBtn"
-                        onClick={()=>{
-                            sendMessage(messageRef.current.value);
-                            messageRef.current.value = "";
-                        }}
+                        onClick={() => sendMyMessage()}
                     >
                         send
                     </span>

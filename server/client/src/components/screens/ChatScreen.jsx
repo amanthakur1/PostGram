@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useRef, useContext} from 'react'                            ;
 import io from                                               'socket.io-client'                 ;
 import M from                                                'materialize-css'                  ;
-import { UserContext } from                                  '../../App'                        ;
+import { UserContext, ChatContext } from                                  '../../App'                        ;
 import                                                       './chatComponents/chatScreen.css'  ;
 import                                                       './chatComponents/userProfile.css' ;
 import ChatList from                                         './chatComponents/ChatList'        ;
@@ -34,32 +34,13 @@ export var GlobalSocket = null;
 
 const ChatScreen = () => {
     const { state          }                    = useContext(UserContext);
+    const { chatState, chatDispatch} = useContext(ChatContext);
     const [ onlinePeople  , setOnlinePeople ]   = useState  ([]         );
-    const [ debugChats    , setDebugChats]      = useState  ([]         );
     const [ chatWithUserId, setChatWithUserId ] = useState  (""         );
     const [ socket        , setSocket ]         = useState  (null       );
-    const [ chats         , setChats ]          = useState  ([]         );
 
     useEffect(()=>{
-        try{
-            let {chatData} = JSON.parse(sessionStorage.getItem("chatData"));
-            setChats(chatData);
-        }catch(err){}
     },[]);
-
-    const addMessageToChats = (data,by) =>{
-        let otherUser = by==="me" ? chatWithUserId : data.sender;
-
-        // ADD MESSAGES TO SESSION STORAGE-------------------------------------------------
-        let {chatData} = JSON.parse(sessionStorage.getItem("chatData"));
-        chatData = [...chatData, {
-            msg:data.message,
-            by: by,
-            email: otherUser.email
-        }]
-        setChats(chatData);
-        sessionStorage.setItem("chatData",JSON.stringify({chatData:chatData}));
-    }
 
     // SETUP SOCKET FOR COMMUNICATION------------------------------------------------------
     const setupSocket = () =>{
@@ -92,11 +73,17 @@ const ChatScreen = () => {
             // console.log("Socket Dis-Connected!");
         });
     
-        // RECEIVING PRIVATE UPDATE--------------------------------------------------------
+        // RECEIVING PRIVATE MESSAGE--------------------------------------------------------
         newSocket.on('new private message',(data)=>{
             data = JSON.parse(data);
-            // console.log("NEW PRIVATE MESSAGE:",data.message, data);
-            addMessageToChats(data,"other");
+            chatDispatch({
+                type: "NEW_MESSAGE",
+                payload: {
+                    message: data.message,
+                    by: "other",
+                    otherUserEmail: data.sender.email
+                }
+            });
         });
     
         // RECEIVING ONLINE USERS LIST-----------------------------------------------------
@@ -115,8 +102,17 @@ const ChatScreen = () => {
             return;
         }
 
-        // console.log("new msg by me",chatWithUserId);
-        addMessageToChats({message:message}, "me");
+        // Adding message to my storage
+        chatDispatch({
+            type: "NEW_MESSAGE",
+            payload: {
+                message: message,
+                by: "me",
+                otherUserEmail: chatWithUserId.email
+            }
+        });
+
+        // Sending message to server
         socket.emit(
             'private message',
             JSON.stringify({
@@ -146,11 +142,9 @@ const ChatScreen = () => {
                         sendMessage={newMessage}
                         chats = {
                             chatWithUserId ? 
-                              [...chats.filter(item=>item.email === chatWithUserId.email)]
+                              [...chatState.chatData.filter(item=>item.email === chatWithUserId.email)]
                             : []
-                        }                    
-                        debugChats={debugChats}
-                        state={state}
+                        }
                     />
                     
                     {/* CHAT WITH USER PROFILE */}

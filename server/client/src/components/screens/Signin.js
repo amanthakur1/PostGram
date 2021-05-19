@@ -1,6 +1,6 @@
 import  React            , {useState, useContext} from 'react'                              ;
 import {Link             , useHistory}            from 'react-router-dom'                  ;
-import {UserContext     }                         from '../../App'
+import {UserContext, ChatContext}                         from '../../App'
 import  M                                         from 'materialize-css'                    ;
 import  CircularProgress                          from '@material-ui/core/CircularProgress';
 
@@ -9,6 +9,7 @@ const Signin = ()=>{
 
     // context 
     const {state, dispatch} = useContext(UserContext);
+    const {chatDispatch} = useContext(ChatContext);
 
     // network req------------------------------
     const  history                = useHistory(  )
@@ -53,7 +54,7 @@ const Signin = ()=>{
                 localStorage.setItem("user",JSON.stringify(data.user))
                 history.push('/')
                 dispatch({type: "USER", payload:data.user});
-
+                chatDispatch({type: "INIT"});
                 
 
                 M.toast({html:`✔️ SignedIn Successful...`, classes:"#43a047 green darken-1" })
@@ -87,9 +88,9 @@ const Signin = ()=>{
                 {
                     signinRequest === false ?
                         <button className="waves-effect waves-light btn mt-4" onClick={() => PostData()}>SignIn</button>
-                    : <p className="mt-4"><CircularProgress /></p>
+                    : <div align="center"><CircularProgress /></div>
                 }
-                <h6 style={{marginTop:"25px"}}>Don't have an Account? <Link to='/signup'>SignUp</Link></h6>
+                <h6 style={{marginTop:"25px"}}>Don't have an Account? <Link to='/signup'>Register</Link></h6>
                 <p><Link to="/reset" >Forgot Password?</Link></p>           
             </div>
         </div>

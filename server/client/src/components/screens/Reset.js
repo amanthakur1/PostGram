@@ -49,17 +49,18 @@ const Reset = ()=>{
     return(
         <div className="mycard">
             <div className="card auth-card input-field" >
-                <h2>Instagram</h2>
+                <h2>PostGram</h2>
                 <input 
-                type="text"
-                placeholder="Email"
-                value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e)=>setEmail(e.target.value)}
+                    style = {{marginBottom: "20px"}}
                 />
                 
                 <button className="waves-effect waves-light btn" onClick={() => PostData()} >Reset</button>
 
-                <h6>Don't want to Change? <Link to='/signin'>SignIn</Link></h6>
+                <h6><Link to='/signin'>SignIn</Link></h6>
 
                 
             </div>    
