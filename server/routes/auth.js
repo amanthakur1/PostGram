@@ -179,7 +179,7 @@ router.post('/reset-password',(req,res)=>{
                     to:user.email,
                     from:"usoldevs@gmail.com",
                     subject:"PostGram Password Reset",
-                    html: resetPasswordLink(`http://localhost:3000/reset/${token}`)
+                    html: resetPasswordLink(`https://postgram-usoldevs.herokuapp.com/reset/${token}`)
                     // `
                     // <p>You can change your Password here.</p>
                     // <h5>Click on the <a href="http://localhost:3000/reset/${token}">link</a> to reset password</h5>
