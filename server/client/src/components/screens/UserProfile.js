@@ -25,15 +25,15 @@ function BootstrapTooltip(props) {
 // code for tool tip--------------
 
 
-const Profile = ()=>{
-
-    const [userProfile,setProfile]     = useState  (null       );
-    const {state      , dispatch}      = useContext(UserContext);
-    const {userid     }                = useParams (           );
-    const [showfollow , setShowFollow] = useState  (true       );
+const Profile = () => {
+    const [ userProfile,setProfile ] = useState(null);
+    const { state, dispatch } = useContext(UserContext);
+    const { userid } = useParams();
+    const [ showfollow , setShowFollow ] = useState(true);
+    
     useEffect(() => {
         setShowFollow(state && !state.following.includes(userid))
-    }, state) // logic for follow unfollow button
+    }, [state, userid]); // logic for follow unfollow button
 
     // console.log(userid);
 
@@ -49,7 +49,7 @@ const Profile = ()=>{
             // console.log(result);
             setProfile(result);
         })
-    },userid)
+    },[userid]);
     // fetching profile from the db for other---------------
 
     // following peoples----------------------------

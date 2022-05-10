@@ -1,8 +1,8 @@
-import React, {useRef, useEffect, useState, useContext} from 'react';
+import React, {useRef, useEffect, useContext} from 'react';
 import {UserContext} from '../../../App';
 import ChatItem from './ChatItem';
 import './chatContent.css';
-import   Avatar                                          from '@material-ui/core/Avatar' ;
+import Avatar from '@material-ui/core/Avatar';
 
 const ChatContent = ({ user, sendMessage, chats }) => {
     const messageRef = useRef("");
@@ -24,7 +24,7 @@ const ChatContent = ({ user, sendMessage, chats }) => {
     }
 
     const handleKeyPressOnMessageInput = (e) =>{
-        if(e.key == "Enter"){
+        if(e.key === "Enter"){
             sendMyMessage();
         }
     }

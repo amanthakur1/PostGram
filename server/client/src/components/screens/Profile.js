@@ -1,9 +1,9 @@
-import  React      ,{useEffect , useState, useContext} from 'react'           ;
-import {UserContext }                                  from '../../App'       ;
-import  CircularProgress                          from '@material-ui/core/CircularProgress';
+import React, {useEffect , useState, useContext} from 'react';
+import { UserContext } from '../../App';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // code for tool tip--------------
-import { makeStyles } from '@material-ui/core/styles' ;
-import   Tooltip      from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 import Loader from '../loader/Loader';
 
 const useStylesBootstrap = makeStyles((theme) => ({
@@ -58,10 +58,8 @@ const Profile = ()=>{
                 method:"post",
                 body:data
             })
-            .then(res=>res.json())
-            .then(data=>{
-                // setUrl(data.url);
-                // console.log(data);
+            .then(res => res.json())
+            .then(data => {
                 fetch('/updatepic',{
                     method:"put",
                     headers:{
@@ -81,7 +79,7 @@ const Profile = ()=>{
                 })
             
             })
-            .catch(err=>{
+            .catch(err => {
                 setAddphoto(false);
                 console.log(err)
             })
@@ -127,23 +125,18 @@ const Profile = ()=>{
                     <h4> {/* name and update profile pic */}
 
                         {state ? state.name : "Loading..."}
-                         
-                        {/* <i className="followbtn material-icons" 
-                            // onClick={ ()=>{ updatePhoto() } }
-                            > add_a_photo
-                        </i> */}
                         {   
-                            addphoto ?
-                            <span style={{marginLeft:"15px"}}><CircularProgress /></span>
-                        
-                            :
-                            <div className="file-field">
-                                <BootstrapTooltip placement="top" title="Upload Profile Pic" arrow> 
-                                    <span className="followbtn material-icons"> add_a_photo 
-                                        <input type="file" onChange={(e)=> updatePhoto(e.target.files[0])}/> 
-                                    </span>
-                                </BootstrapTooltip>
-                            </div>
+                            addphoto
+                            ? <span style={{marginLeft:"15px"}}><CircularProgress /></span>
+                            : (
+                                <div className="file-field">
+                                    <BootstrapTooltip placement="top" title="Upload Profile Pic" arrow> 
+                                        <span className="followbtn material-icons"> add_a_photo 
+                                            <input type="file" onChange={(e)=> updatePhoto(e.target.files[0])}/> 
+                                        </span>
+                                    </BootstrapTooltip>
+                                </div>
+                            )
                         }
                     </h4>
                     <div style={{
@@ -158,19 +151,17 @@ const Profile = ()=>{
                 </div>
 
             </div>
-                    
         
-            <div className="gallary">
-                {
-                    mypics.map((item,index)=>{
-                        return(
-                            <img key={index} className="item" src={item.photo} alt={item.title}/>
+                <div className="gallary">
+                    {
+                        mypics.map((item,index)=>{
+                            return(
+                                <img key={index} className="item" src={item.photo} alt={item.title}/>
+                            )
+                        })
+                    }
 
-                        )
-                    })
-                }
-
-            </div>
+                </div>
             </div>
         }       
 

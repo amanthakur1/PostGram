@@ -1,8 +1,8 @@
-import   React      ,{ useState ,useEffect, useContext, useRef } from 'react'                    ;
-import { UserContext }                                   from '../../App'                ;
-import { Link        }                                   from 'react-router-dom'         ;
-import   Avatar                                          from '@material-ui/core/Avatar' ;
-import  M                                    from 'materialize-css' ;
+import React, { useState ,useEffect, useContext } from 'react';
+import { UserContext } from '../../App';
+import { Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import M from 'materialize-css' ;
 import Loader from '../loader/Loader';
 
 // code for tool tip--------------
@@ -20,41 +20,32 @@ const useStylesBootstrap = makeStyles((theme) => ({
 
 function BootstrapTooltip(props) {
   const classes = useStylesBootstrap();
-
   return <Tooltip arrow classes={classes} {...props} />;
 }
 // <BootstrapTooltip placement="right" title="Visit Profile" arrow>
 // code for tool tip--------------
 
 
-const Home = ()=>{
-
-    // const commentRef = useRef("");
-    const [data, setData] = useState([]);
-    // const comment_on_post = useRef([]);
+const Home = () => {
+    const [ data, setData ] = useState([]);
     const { state } = useContext(UserContext);
     const myInfo = JSON.parse(localStorage.getItem("user"));
 
     // Fecting post from database-------------------
-    useEffect(()=>{
+    useEffect(() => {
         fetch('/allpost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             }
         })
-        .then(res=>res.json())
-        .then(result=>{
-            // console.log(result);
+        .then(res => res.json())
+        .then(result => {
             setData(result.posts);
-            // comment_on_post.current = result.posts.map(
-            //     (ref, index) => comment_on_post.current[index] = React.createRef()
-            // )
-        })
-
-    },[])
+        });
+    },[]);
 
     // Fecting post from database-------------------
-    const like_unlike_effect = (element_id, cssClass) =>{
+    const like_unlike_effect = (element_id, cssClass) => {
         const like_unlike_effect_icon = document.getElementById(element_id+"-like-effect");
         like_unlike_effect_icon.classList.toggle(cssClass);
         setTimeout(function() {
@@ -63,7 +54,7 @@ const Home = ()=>{
     }
 
     // like -unlike -----------------------
-    const likePost = (id)=>{
+    const likePost = (id) => {
         like_unlike_effect(id,"fade-red");
         fetch('/like',{
             method:"put",
@@ -74,8 +65,8 @@ const Home = ()=>{
             body:JSON.stringify({
                 postId:id
             })
-        }).then(res=>res.json())
-        .then(result=>{
+        }).then(res => res.json())
+        .then(result => {
             // console.log(result);
             const newData = data.map(item=>{
                 if(item._id === result._id){
@@ -101,10 +92,9 @@ const Home = ()=>{
             body:JSON.stringify({
                 postId:id
             })
-        }).then(res=>res.json())
-        .then(result=>{
-            // console.log(result);
-            const newData = data.map(item=>{
+        }).then(res => res.json())
+        .then(result => {
+            const newData = data.map(item => {
                 if(item._id === result._id){
                     return result;
                 }else{
@@ -122,10 +112,7 @@ const Home = ()=>{
 
     
     // comment ---------------------------
-    const makeComment = (text,postId)=>{
-        // const text = comment_on_post.current.value;
-        // console.log(text,postId);
-        // return;
+    const makeComment = (text, postId) => {
         if(!text){
             M.toast({html: `⚠️<span style="color:black" > Comment can't be Empty...</span>`, classes:"yellow red accent-2" })
             return;
@@ -141,9 +128,8 @@ const Home = ()=>{
                 postId,
                 text
             })
-        }).then(res=>res.json())
-        .then(result=>{
-            // console.log(result);
+        }).then(res => res.json())
+        .then(result => {
             const newData = data.map(item=>{
                 if(item._id === result._id){
                     return result;

@@ -1,16 +1,16 @@
-import React, {useEffect, useState, useRef, useContext} from 'react'                            ;
-import io from                                               'socket.io-client'                 ;
-import M from                                                'materialize-css'                  ;
-import { UserContext, ChatContext } from                                  '../../App'                        ;
-import                                                       './chatComponents/chatScreen.css'  ;
-import                                                       './chatComponents/userProfile.css' ;
-import ChatList from                                         './chatComponents/ChatList'        ;
-import ChatContent from                                      './chatComponents/ChatContent'     ;
+import React, { useEffect, useState, useContext } from 'react';
+import io from 'socket.io-client';
+import M from 'materialize-css';
+import { UserContext, ChatContext } from '../../App';
+import './chatComponents/chatScreen.css';
+import './chatComponents/userProfile.css';
+import ChatList from './chatComponents/ChatList';
+import ChatContent from './chatComponents/ChatContent';
 import { Link } from 'react-router-dom';
 
 // code for tool tip--------------
-import { makeStyles }               from '@material-ui/core/styles'  ;
-import   Tooltip                    from '@material-ui/core/Tooltip' ;
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStylesBootstrap = makeStyles((theme) => ({
   arrow: {
@@ -153,7 +153,7 @@ const ChatScreen = () => {
                         <div className="main__userprofile">
                             <div className="profile__card user__profile__image">
                                 <div className="profile__image">
-                                    <img src={chatWithUserId.pic} />
+                                    <img src={chatWithUserId.pic} alt="profile" />
                                 </div>
 
                                 <BootstrapTooltip placement="bottom" title="Visit Profile" arrow>

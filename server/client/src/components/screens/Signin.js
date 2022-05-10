@@ -3,27 +3,24 @@ import {Link             , useHistory}            from 'react-router-dom'       
 import {UserContext, ChatContext}                         from '../../App'
 import  M                                         from 'materialize-css'                    ;
 import  CircularProgress                          from '@material-ui/core/CircularProgress';
+import * as Validators from '../../utils/Validators';
 
 
 const Signin = ()=>{
 
     // context 
-    const {state, dispatch} = useContext(UserContext);
-    const {chatDispatch} = useContext(ChatContext);
+    const { dispatch } = useContext(UserContext);
+    const { chatDispatch } = useContext(ChatContext);
 
     // network req------------------------------
-    const  history                = useHistory(  )
-    const [password, setPassword] = useState  ("")
-    const [email   , setEmail]    = useState  ("")
-    const [signinRequest, setSigninRequest] = useState(false);
-    const [open, setOpen] = useState(false);
+    const history = useHistory();
+    const [ password, setPassword ] = useState("");
+    const [ email   , setEmail] = useState("");
+    const [ signinRequest, setSigninRequest ] = useState(false);
 
-    const PostData = ()=>{
-
+    const PostData = () => {
         setSigninRequest(true);
-        // Email regex ------
-        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(!emailRegex.test(email)){
+        if(Validators.isEmailInValid(email)){
             M.toast({html: `⚠️<span style="color:black" >&nbsp;Invalid Email Format...</span>`, classes:"yellow red accent-2"})
             setSigninRequest(false);
             return;
@@ -38,13 +35,10 @@ const Signin = ()=>{
             body:JSON.stringify({
                 email,
                 password
-                
             })
         })
         .then(res=>res.json())
-        .then(data=>{
-            // console.log(data);
-
+        .then(data => {
             if(data.error){
                 M.toast({html: `❌ ${data.error}`, classes:"#ff5252 red accent-2" })
                 setSigninRequest(false);
@@ -55,12 +49,11 @@ const Signin = ()=>{
                 history.push('/')
                 dispatch({type: "USER", payload:data.user});
                 chatDispatch({type: "INIT"});
-                
 
                 M.toast({html:`✔️ SignedIn Successful...`, classes:"#43a047 green darken-1" })
             }
             // console.log(data);
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
             M.toast({html: `⚠️<span style="color:black" >Something went wrong!!!</span>`, classes: "yellow red"});
             setSigninRequest(false);

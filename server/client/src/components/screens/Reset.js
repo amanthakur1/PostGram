@@ -1,22 +1,17 @@
-import  React , {useState, useContext} from 'react'           ;
-import {Link  , useHistory}            from 'react-router-dom';
-import  M                              from 'materialize-css' ;
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import M from 'materialize-css';
+import * as Validators from '../../utils/Validators';
 
-const Reset = ()=>{
+const Reset = () => {
+    const history = useHistory();
+    const [ email, setEmail ] = useState("");
 
-
-    // network req------------------------------
-    const  history            = useHistory(  )
-    const [email  , setEmail] = useState  ("")
-
-    const PostData = ()=>{
-
-        // Email regex ------
-        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+    const PostData = () => {
+        if(Validators.isEmailInValid(email)){
             M.toast({html: `⚠️<span style="color:black" > Invalid Email Format...</span>`, classes:"yellow red accent-2" })
             return;
         }
-        // Email regex ------
 
         fetch('/reset-password',{
             method:"post",

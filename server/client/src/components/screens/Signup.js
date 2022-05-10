@@ -1,26 +1,24 @@
-import  React, {useState}  from 'react'           ;
-import {Link , useHistory} from "react-router-dom";
-import  M                  from 'materialize-css' ;
-import  CircularProgress                          from '@material-ui/core/CircularProgress';
-const Signup = ()=>{
+import React, { useState } from 'react';
+import { Link , useHistory } from "react-router-dom";
+import M from 'materialize-css';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as Validators from '../../utils/Validators';
 
-    const  history                              = useHistory (     )
-    const [name            , setName]           = useState   (""   )
-    const [password       , setPassword]        = useState   (""   )
-    const [confirmPassword, setConfirmPassword] = useState   (""   );
-    const [email           , setEmail]          = useState   (""   )
-    const [signupRequest  , setSignupRequest]   = useState   (false);
+const Signup = () => {
+    const history = useHistory();
+    const [ name, setName ] = useState("");
+    const [ password, setPassword ] = useState("");
+    const [ confirmPassword, setConfirmPassword ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ signupRequest, setSignupRequest ] = useState(false);
 
     // network req------------------
     const PostData = ()=>{
         setSignupRequest(true);
-        // Email regex ------
-        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(!emailRegex.test(email)){
+        if(Validators.isEmailInValid(email)){
             M.toast({html: `⚠️<span style="color:black" > Invalid Email Format...</span>`, classes:"yellow red accent-2" })
             setSignupRequest(false);
             return;
-            
         }
         // Email regex ------
 
