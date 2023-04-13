@@ -51,9 +51,3 @@ PostGram is a Web App built on MERN Stack. It's Instagram-clone App & enables us
 ![Search](https://res.cloudinary.com/amz42/image/upload/v1610705350/personal/Screenshot_842_grbezb.png)
 ![ChatScreen](https://res.cloudinary.com/amz42/image/upload/v1610705401/personal/Screenshot_843_ruymrl.png)
 
-<p align="center">
-	Made with ❤️ by
-	<a href="https://github.com/amanthakur1" target="_blank">Aman Chauhan</a> & 
-	<a href="https://github.com/Amz42" target="_blank">Aman Gupta</a>
-	<p align="center"><b>USolDevs</b> (Unique Solution Developers) | usoldevs@gmail.com </p>
-</p>
